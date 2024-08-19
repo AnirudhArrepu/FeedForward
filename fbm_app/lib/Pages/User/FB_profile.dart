@@ -1,5 +1,6 @@
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fbm_app/Button/button.dart';
 import 'package:flutter/widgets.dart';
@@ -77,7 +78,7 @@ class _FbProfileState extends State<FbProfile> {
                 ),
                 butt(
                   text: "My FB",
-                  routeName: "/fb_info",
+                  routeName: DataClass.foodbank.isNotEmpty? "/fb_info":"/create_fb",
                   icon: Icon(Icons.food_bank),
                 ),
                 SizedBox(
