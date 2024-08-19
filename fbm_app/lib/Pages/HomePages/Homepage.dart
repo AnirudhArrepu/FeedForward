@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Pages/Forms/create_FB.dart';
+import 'package:fbm_app/Pages/HomePages/leaderboard.dart';
 import 'package:fbm_app/Pages/Restaurant/Rprofile.dart';
 import 'package:fbm_app/Pages/User/FB_profile.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
@@ -36,10 +36,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    NotificationClass('Leaderboard',
-        '${LeaderboardClass.winnerDonation} is no.1 donor', false);
-    NotificationClass('Leaderboard',
-        '${LeaderboardClass.winnerVolunteer} is no.1 volunteer', false);
     List<String> idioms = [
       "\"Share your food; feed a hungry heart today.\"",
       "\"One meal can make a world of difference.\"",
@@ -69,24 +65,42 @@ class _HomepageState extends State<Homepage> {
           onDoubleTap: () => {
             Navigator.pushNamed(context, '/emergency'),
           },
-          
-          child: SingleChildScrollView(           
+          child: SingleChildScrollView(
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                 SizedBox(height: 10,),
-                const  Text(
-                "Notifications",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-                ),
-                 SizedBox(height: 10,), 
+                  SizedBox(
+                    height: 10,
+                  ),
+                  const Text(
+                    "Notifications",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Card(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 16.0),
+                      child: ListTile(
+                        title: Text_Theme.text_size(
+                            '${LeaderboardClass.winnerDonation}', 20),
+                        subtitle: Text_Theme.text_size('is no.1 donor', 15),
+                      )),
+                  Card(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 16.0),
+                      child: ListTile(
+                        title: Text_Theme.text_size(
+                            '${LeaderboardClass.winnerVolunteer}', 20),
+                        subtitle: Text_Theme.text_size('is no.1 volunteer', 15),
+                      )),
                   SingleChildScrollView(
-                                
                     child: Container(
                         height: 325,
                         child: ListView.builder(
@@ -147,12 +161,11 @@ class _HomepageState extends State<Homepage> {
                       icon: const Icon(
                         Icons.person,
                         size: 25,
-                        color : Colors.black,
+                        color: Colors.black,
                       ),
-                      label:const Text(
+                      label: const Text(
                         "PROFILE",
                         style: TextStyle(color: Colors.white, fontSize: 15),
-                        
                       ),
                     ),
                   ]),

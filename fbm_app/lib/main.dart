@@ -74,7 +74,6 @@ class MyApp extends StatelessWidget {
         '/rprofile': (context) => const RestaurantProfile(
               RDetails: {},
             ),
-        '/d_form': (context) => const DonationForm(),
         '/vform': (context) => VolunteerForm(),
         '/emergency': (context) => const Emergency(),
         '/cooked_food': (context) => const CookedFood(),

@@ -3,13 +3,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class NotificationClass {
   late String title;
   late String subtitle;
+  late bool isEmergency;
 
   static List<NotificationClass> notifications = [];
 
-  NotificationClass(String t, String s, bool truth) {
+  NotificationClass(String t, String s, bool truth, bool isEmerg) {
     title = t;
     subtitle = s;
-    if(truth) addNotificationToFirebase(this);
+    isEmergency = isEmerg;
+    if (truth) addNotificationToFirebase(this);
     notifications.add(this);
   }
 
@@ -17,7 +19,7 @@ class NotificationClass {
     CollectionReference notifications =
         FirebaseFirestore.instance.collection('notifications');
 
-    notifications.add({'title': nfc.title, 'subtitle': nfc.subtitle});
+    notifications.add({'title': nfc.title, 'subtitle': nfc.subtitle, 'emergency': nfc.isEmergency});
   }
 
   static void loadFromFirebase() async {
@@ -27,7 +29,7 @@ class NotificationClass {
     QuerySnapshot querySnapshot = await notifications.get();
 
     for (var doc in querySnapshot.docs) {
-      NotificationClass(doc['title'], doc['subtitle'], false);
+      NotificationClass(doc['title'], doc['subtitle'], false, doc['emergency']);
     }
   }
 }
