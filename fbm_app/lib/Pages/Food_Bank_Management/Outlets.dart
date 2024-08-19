@@ -67,7 +67,11 @@ class _OutletsState extends State<Outlets> {
                                   label: Text_Theme.text_white("Donate"),
                                   backgroundColor: AppTheme.secondaryColor,
                                   onPressed: () {
-                                    Navigator.push(context, MaterialPageRoute(builder:(c) => DonationForm(foodbank: outlet)));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (c) => DonationForm(
+                                                foodbank: outlet)));
                                   },
                                   icon: Icon(Icons.handshake),
                                 ),
@@ -79,19 +83,19 @@ class _OutletsState extends State<Outlets> {
         ));
   }
 
-  // Future<void> loadFoodBankDetails() async {
-  //   CollectionReference foodbankcollection =
-  //       FirebaseFirestore.instance.collection('foodbank');
+  Future<void> loadFoodBankDetails() async {
+    CollectionReference foodbankcollection =
+        FirebaseFirestore.instance.collection('foodbank');
 
-  //   QuerySnapshot queryfoodbank = await foodbankcollection.get();
+    QuerySnapshot queryfoodbank = await foodbankcollection.get();
 
-  //   for (var doc in queryfoodbank.docs) {
-  //     String name = doc['name'];
-  //     print(name);
-  //     // if (outlets.contains('AkshayPatra')) {
-  //     //   continue;
-  //     // }
-  //     outlets.add(name);
-  //   }
-  // }
+    for (var doc in queryfoodbank.docs) {
+      String name = doc['name'];
+      print(name);
+      if (outlets.contains('AkshayPatra')) {
+        continue;
+      }
+      outlets.add(name);
+    }
+  }
 }

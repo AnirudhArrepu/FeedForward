@@ -1,5 +1,6 @@
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,12 +16,12 @@ class _VolunteerFormState extends State<VolunteerForm> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> _saveUserData(
-      String username, int hours, String foodbank) async {
+      String username, int hours) async {
     try {
       await _firestore.collection('volunteers').add({
         'username': username,
         'hours': hours,
-        'foodbank': foodbank,
+        'foodbank': DataClass.foodbank,
       });
       print("Data saved successfully");
     } catch (e) {
@@ -73,17 +74,6 @@ class _VolunteerFormState extends State<VolunteerForm> {
                         color: Colors.white),
                   ),
                   style: TextStyle(color: Colors.white)),
-              SizedBox(height: 25),
-              TextField(
-                  controller: _foodbankController,
-                  decoration: InputDecoration(
-                    labelText: 'Enter the FoodBank:',
-                    labelStyle: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 24,
-                        color: Colors.white),
-                  ),
-                  style: TextStyle(color: Colors.white)),
               SizedBox(height: 50),
               ElevatedButton(
                 onPressed: () async {
@@ -91,8 +81,7 @@ class _VolunteerFormState extends State<VolunteerForm> {
                   int hoursWorked = int.tryParse(_hoursController.text) ?? 0;
 
                   // Call the function to save the data to Firestore
-                  await _saveUserData(_userNameController.text, hoursWorked,
-                      _foodbankController.text);
+                  await _saveUserData(_userNameController.text, hoursWorked);
 
                   // Show a Snackbar to confirm data submission
                   ScaffoldMessenger.of(context).showSnackBar(
