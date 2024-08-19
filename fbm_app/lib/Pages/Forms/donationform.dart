@@ -1,3 +1,4 @@
+import 'package:fbm_app/Pages/Food_Bank_Management/Outlets.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,17 +45,26 @@ class _DonationFormState extends State<DonationForm> {
               //
               for (int i = 0; i < widgets.length; i++) widgets[i],
               //
-              const Row(children: [
+              Row(children: [
                 SizedBox(height: 40, width: 135),
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: FloatingActionButton.extended(
-                    label: Text_Theme.text_white(text),
+                    label: Text_Theme.text_white("Donation"),
                     backgroundColor: AppTheme.secondaryColor,
-                    onPressed: () {
-                      Navigator.pushNamed(context, routeName);
+                    onPressed: () async {
+                      await _ItemDonationWidgetState()._saveUserData();
+                      await _ItemDonationWidgetState()._addFoodItem(
+                          _ItemDonationWidgetState().Selected_item,
+                          _ItemDonationWidgetState().controller_name.text,
+                          int.parse(_ItemDonationWidgetState()
+                              .controller_quantity
+                              .text),
+                          DateTime.parse(_ItemDonationWidgetState()
+                              .controller_expirydate
+                              .text));
                     },
-                    icon: icon,
+                    icon: Icon(Icons.handshake),
                   ),
                 ),
               ]),
@@ -95,8 +105,7 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
 
   String? documentId;
 
-  Future<void> _saveUserData(String itemname, int quantinty,
-      Timestamp expirydate, String selectedtype) async {
+  Future<void> _saveUserData() async {
     try {
       DocumentReference donationRef =
           await _firestore.collection('donations').add({
