@@ -1,57 +1,63 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class LoadingDialog extends StatelessWidget
- {
+class LoadingDialog extends StatelessWidget 
+{
   String massagetext;
-  
 
-  LoadingDialog({super.key, required this.massagetext,});
+
+
+  LoadingDialog({
+    super.key,required this.massagetext,});
 
   @override
-  Widget build(BuildContext context) 
-  {
-    
+  Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15)
+        borderRadius: BorderRadius.circular(15),
       ),
       backgroundColor: Colors.black45,
-      child: Container(
-        margin: const EdgeInsets.all(17),
-        width: 100,
-        decoration: BoxDecoration(
-          color: Colors.black38,
-           borderRadius: BorderRadius.circular(8),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.8,
         ),
+        child: Container(
+          margin: const EdgeInsets.all(17),
+          decoration: BoxDecoration(
+            color: Colors.black38,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Row(
+              children: [
 
-        child: Padding(
-          padding: const EdgeInsets.all(14),
-          child: Row(
-            children: [
 
-              const SizedBox(width: 7),
-
-             const CircularProgressIndicator(
-                valueColor:  AlwaysStoppedAnimation<Color>(Colors.white10),
+                const SizedBox(width: 7),
+                const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                 ),
 
-                 const SizedBox(width: 8), 
 
-                 Text(
-                  massagetext,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
+                const SizedBox(width: 8),
+
+
+                Flexible(
+                  child: Text(
+                    massagetext,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
-
-                 )
-
-
-            ],
+                  ),
+              ],
+        ),
           ),
         ),
       ),
-    );
+      );
   }
 }
