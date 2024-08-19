@@ -19,9 +19,7 @@ class _DonationFormState extends State<DonationForm> {
 
   void addWidgets() {
     widgets.add(const ItemDonationWidget());
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
@@ -59,7 +57,7 @@ class _DonationFormState extends State<DonationForm> {
                   label: Text(""),
                   icon: Icon(Icons.add),
                   onPressed: addWidgets,
-                  ),
+                ),
               ),
             ],
           ),
@@ -91,8 +89,8 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:
-                Text_Theme.text_colored("Select Food Type", 24, Color.fromARGB(221, 0, 0, 0)),
+            child: Text_Theme.text_colored(
+                "Select Food Type", 24, Color.fromARGB(221, 0, 0, 0)),
           ),
           const SizedBox(height: 10),
           DropdownButton<String>(
