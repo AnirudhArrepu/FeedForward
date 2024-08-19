@@ -48,10 +48,14 @@ class _DonationFormState extends State<DonationForm> {
                 SizedBox(height: 40, width: 135),
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: butt(
-                      text: 'Donate',
-                      icon: Icon(Icons.handshake_rounded),
-                      routeName: ''),
+                  child: FloatingActionButton.extended(
+                    label: Text_Theme.text_white(text),
+                    backgroundColor: AppTheme.secondaryColor,
+                    onPressed: () {
+                      Navigator.pushNamed(context, routeName);
+                    },
+                    icon: icon,
+                  ),
                 ),
               ]),
               Align(
