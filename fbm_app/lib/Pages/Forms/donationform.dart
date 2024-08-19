@@ -6,6 +6,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:fbm_app/Button/button.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fbm_app/classes/data_class.dart';
 
 class DonationForm extends StatefulWidget {
   const DonationForm({super.key});
@@ -78,10 +80,34 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
     'Packaged Food',
     'Coocked Food',
   ];
-  String Selected_item = "Rice";
+
   TextEditingController controller_quantity = TextEditingController();
   TextEditingController controller_name = TextEditingController();
   TextEditingController controller_expirydate = TextEditingController();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  String? documentId;
+
+  Future<void> _saveUserData(String itemname, int quantinty,
+      Timestamp expirydate, String selectedtype) async {
+    try {
+      DocumentReference donationRef =
+          await _firestore.collection('donations').add({
+        'username': DataClass.username,
+
+        //'foodbank': foodbank,
+      });
+      setState(() {
+        documentId = donationRef.id;
+      });
+
+      print("Data saved successfully with document ID: $documentId");
+    } catch (e) {
+      print("Error saving data: $e");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
