@@ -64,9 +64,8 @@ class _HomepageState extends State<Homepage> {
           title: Text_Theme.text_size("FeedForward", 20),
           centerTitle: true,
         ),
-<<<<<<< Updated upstream
         body: GestureDetector(
-          onDoubleTap:() => {
+          onDoubleTap: () => {
             Navigator.pushNamed(context, '/emergency'),
           },
           child: SingleChildScrollView(
@@ -80,7 +79,8 @@ class _HomepageState extends State<Homepage> {
                         child: ListView.builder(
                             itemCount: NotificationClass.notifications.length,
                             itemBuilder: (context, index) {
-                              final noti = NotificationClass.notifications[index];
+                              final noti =
+                                  NotificationClass.notifications[index];
                               return Card(
                                   margin: const EdgeInsets.symmetric(
                                       vertical: 10.0, horizontal: 16.0),
@@ -90,60 +90,6 @@ class _HomepageState extends State<Homepage> {
                                         Text_Theme.text_size(noti.subtitle, 15),
                                   ));
                             })),
-=======
-        body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                      SizedBox(height: 10,),
-                      const  Text(
-                "Notifications",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  
-                  
-                  
-                ),
-                ),
-                      SizedBox(height: 10,),
-                SingleChildScrollView(
-                  child: Container(
-                      height: 425,
-                      child: ListView.builder(
-                          itemCount: NotificationClass.notifications.length,
-                          itemBuilder: (context, index) {
-                            final noti = NotificationClass.notifications[index];
-                            return Card(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 16.0),
-                                child: ListTile(
-                                  title: Text_Theme.text_size(noti.title, 20),
-                                  subtitle:
-                                      Text_Theme.text_size(noti.subtitle, 15),
-                                ));
-                          })),
-                ),
-                Container(
-                  height: 10,
-                  child: GestureDetector(onDoubleTap: () {
-                    Navigator.pushNamed(context, '/emergency');
-                  }),
-                ),
-                Container(
-                  height: 40,
-                  child: Text_Theme.text_white(
-                      idioms[Random().nextInt(idioms.length)]),
-                ),
-                SizedBox(
-                  height: 70,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  SizedBox(
-                    width: 90,
->>>>>>> Stashed changes
                   ),
                   SizedBox(
                     height: 75,
@@ -183,8 +129,8 @@ class _HomepageState extends State<Homepage> {
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Color.fromARGB(255, 243, 4, 4),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 85, vertical: 15)),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 85, vertical: 15)),
                       child: Text(
                         "PROFILE",
                         style: TextStyle(color: Colors.white, fontSize: 15),
