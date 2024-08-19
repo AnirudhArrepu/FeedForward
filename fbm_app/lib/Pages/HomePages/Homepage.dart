@@ -11,6 +11,7 @@ import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:fbm_app/classes/notification_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fbm_app/Button/button.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class Homepage extends StatefulWidget {
   final Map<String, dynamic> userDetails;
@@ -114,13 +115,13 @@ class _HomepageState extends State<Homepage> {
                     ),
                   ),
                   SizedBox(
-                    height: 70,
+                    height: 40,
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                     SizedBox(
-                      width: 90,
+                      width: 70,
                     ),
-                    ElevatedButton(
+                    ElevatedButton.icon(
                       onPressed: () {
                         if (r == 0) {
                           {
@@ -143,14 +144,20 @@ class _HomepageState extends State<Homepage> {
                           backgroundColor: Color.fromARGB(255, 243, 4, 4),
                           padding: EdgeInsets.symmetric(
                               horizontal: 85, vertical: 15)),
-                      child: Text(
+                      icon: const Icon(
+                        Icons.person,
+                        size: 25,
+                        color : Colors.black,
+                      ),
+                      label:const Text(
                         "PROFILE",
                         style: TextStyle(color: Colors.white, fontSize: 15),
+                        
                       ),
                     ),
                   ]),
                   SizedBox(
-                    height: 10,
+                    height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
