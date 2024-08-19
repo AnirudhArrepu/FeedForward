@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
@@ -13,15 +15,12 @@ class Outlets extends StatefulWidget {
 }
 
 class _OutletsState extends State<Outlets> {
-  List<Map<String, LatLng>> outlets = [];
+  List<String> outlets = [];
 
   @override
   void initState() {
     super.initState();
     loadFoodBankDetails();
-    outlets.add({'Foodbank A': LatLng(37.7749, -122.4194)});
-    outlets.add({'Foodbank B': LatLng(40.7128, -74.0060)});
-    outlets.add({'Foodbank C': LatLng(34.0522, -118.2437)});
   }
 
   @override
@@ -43,7 +42,7 @@ class _OutletsState extends State<Outlets> {
             Container(
                 height: 800,
                 child: ListView.builder(
-                    itemCount: outlets.length,
+                    itemCount:5,
                     itemBuilder: (context, index) {
                       final outlet = outlets[index];
                       Container(
@@ -57,8 +56,7 @@ class _OutletsState extends State<Outlets> {
                               vertical: 10.0, horizontal: 16.0),
                           child: Column(children: [
                             ListTile(
-                              title:
-                                  Text_Theme.text_size(outlet.keys.first, 25),
+                              title: Text_Theme.text_size(outlet, 25),
                             ),
                             const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -84,9 +82,11 @@ class _OutletsState extends State<Outlets> {
 
     for (var doc in queryfoodbank.docs) {
       String name = doc['name'];
-      var loc = doc['location'];
-      LatLng latlng = LatLng(loc['latitude'], loc['longitude']);
-      outlets.add({name: latlng});
+      print(name);
+      // if (outlets.contains('AkshayPatra')) {
+      //   continue;
+      // }
+      outlets.add(name);
     }
   }
 }
