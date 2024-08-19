@@ -58,64 +58,6 @@ class _OutletsState extends State<Outlets> {
         child: Column(
           children: [
             Container(
-<<<<<<< Updated upstream
-                height: 800,
-                child: ListView.builder(
-                    itemCount: outlets.length,
-                    itemBuilder: (context, index) {
-                      final outlet = outlets[index];
-                      Container(
-                        height: 50,
-                        child: GestureDetector(onDoubleTap: () {
-                          Navigator.pushNamed(context, '/emergency');
-                        }),
-                      );
-                      return Card(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 16.0),
-                          child: Column(children: [
-                            ListTile(
-                              title: Text_Theme.text_size(outlet, 25),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                FloatingActionButton.extended(
-                                  label: Text_Theme.text_white("Donate"),
-                                  backgroundColor: AppTheme.secondaryColor,
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (c) => DonationForm(
-                                                foodbank: outlet)));
-                                  },
-                                  icon: Icon(Icons.handshake),
-                                ),
-                              ],
-                            ),
-                          ]));
-                    })),
-          ]),
-        ));
-  }
-
-  Future<void> loadFoodBankDetails() async {
-    CollectionReference foodbankcollection =
-        FirebaseFirestore.instance.collection('foodbank');
-
-    QuerySnapshot queryfoodbank = await foodbankcollection.get();
-
-    for (var doc in queryfoodbank.docs) {
-      String name = doc['name'];
-      print(name);
-      if (outlets.contains('AkshayPatra')) {
-        continue;
-      }
-      outlets.add(name);
-    }
-  }
-=======
               height: 800,
               child: ListView.builder(
                 itemCount: outlets.length,
@@ -167,5 +109,4 @@ class _OutletsState extends State<Outlets> {
       ),
     );
   }
->>>>>>> Stashed changes
 }
