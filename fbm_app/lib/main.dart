@@ -1,3 +1,4 @@
+import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/Inventory/Cooked_food.dart';
 import 'package:fbm_app/Pages/Inventory/Packaged_food.dart';
 import 'package:fbm_app/Pages/Inventory/staple_food.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
         '/cooked_food': (context) => const CookedFood(),
         '/packaged_food': (context) => const PackagedFood(),
         '/staple_food': (context) => const StapleFood(),
+        '/create_fb': (context) =>  CreateFoodBank(),
       },
     );
   }
