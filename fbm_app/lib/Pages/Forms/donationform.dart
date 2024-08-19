@@ -81,6 +81,7 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
     'Packaged Food',
     'Coocked Food',
   ];
+  String Selected_item = 'Staple Food';
 
   TextEditingController controller_quantity = TextEditingController();
   TextEditingController controller_name = TextEditingController();
@@ -106,6 +107,31 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
       print("Data saved successfully with document ID: $documentId");
     } catch (e) {
       print("Error saving data: $e");
+    }
+  }
+
+  Future<void> _addFoodItem(String collectionName, String itemName,
+      int quantity, DateTime expiryDate) async {
+    try {
+      if (documentId == null) {
+        print("Error: Document ID is null");
+        return;
+      }
+
+      // Add a new item to the selected subcollection under donations
+      await _firestore
+          .collection('donations')
+          .doc(documentId)
+          .collection(collectionName)
+          .add({
+        'itemName': itemName,
+        'quantity': quantity,
+        'expiryDate': Timestamp.fromDate(expiryDate),
+      });
+
+      print("Food item added successfully to $collectionName");
+    } catch (e) {
+      print("Error adding food item: $e");
     }
   }
 
