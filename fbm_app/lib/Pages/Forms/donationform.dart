@@ -19,6 +19,7 @@ class _DonationFormState extends State<DonationForm> {
 
   void addWidgets() {
     widgets.add(const ItemDonationWidget());
+    setState(() {});
   }
 
   @override
@@ -56,7 +57,7 @@ class _DonationFormState extends State<DonationForm> {
                   label: Text(""),
                   icon: Icon(Icons.add),
                   onPressed: addWidgets,
-                  ),
+                ),
               ),
             ],
           ),
@@ -73,14 +74,14 @@ class ItemDonationWidget extends StatefulWidget {
 
 class _ItemDonationWidgetState extends State<ItemDonationWidget> {
   final List<String> _selected = [
-    'Rice',
-    'Bread',
-    'Pulses',
-    'SimpleMeals',
-    'ComplexMeals',
+    'Staple Food',
+    'Packaged Food',
+    'Coocked Food',
   ];
   String Selected_item = "Rice";
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller_quantity = TextEditingController();
+  TextEditingController controller_name = TextEditingController();
+  TextEditingController controller_expirydate = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -88,8 +89,8 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child:
-                Text_Theme.text_colored("Select Food Type", 24, Color.fromARGB(221, 0, 0, 0)),
+            child: Text_Theme.text_colored(
+                "Select Food Type", 24, Color.fromARGB(221, 0, 0, 0)),
           ),
           const SizedBox(height: 10),
           DropdownButton<String>(
@@ -111,9 +112,27 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-                controller: controller,
+                controller: controller_name,
                 decoration: const InputDecoration(
                     hintText: "Enter your quantity in kg/meals",
+                    hintStyle: TextStyle(color: Colors.black54),
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+                controller: controller_quantity,
+                decoration: const InputDecoration(
+                    hintText: "Enter your quantity in kg/meals",
+                    hintStyle: TextStyle(color: Colors.black54),
+                    border: OutlineInputBorder())),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+                controller: controller_expirydate,
+                decoration: const InputDecoration(
+                    hintText: "Enter expiry date",
                     hintStyle: TextStyle(color: Colors.black54),
                     border: OutlineInputBorder())),
           ),

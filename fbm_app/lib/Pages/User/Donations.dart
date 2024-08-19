@@ -4,9 +4,22 @@ import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:flutter/material.dart';
 
-class Donations extends StatelessWidget {
+class Donations extends StatefulWidget {
   const Donations({super.key});
 
+  @override
+  State<Donations> createState() => _DonationsState();
+}
+
+class _DonationsState extends State<Donations> {
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final List<Map<String, String>> Donations = [
