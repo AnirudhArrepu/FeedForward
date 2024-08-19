@@ -68,12 +68,24 @@ class _HomepageState extends State<Homepage> {
           onDoubleTap: () => {
             Navigator.pushNamed(context, '/emergency'),
           },
-          child: SingleChildScrollView(
+          
+          child: SingleChildScrollView(           
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                 SizedBox(height: 10,),
+                const  Text(
+                "Notifications",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+                ),
+                 SizedBox(height: 10,), 
                   SingleChildScrollView(
+                                
                     child: Container(
                         height: 325,
                         child: ListView.builder(
