@@ -8,9 +8,16 @@ class DataClass {
   static List<Map<String, LatLng>> foodbankWithLocation = [];
   static List<String> foodbankWithoutLocation = [];
 
-  static void addUsername(String name){
+  static void addUsername(String name) async {
     username = name;
-    if(foodbankWithoutLocation.)
+    CollectionReference foodbanks =
+        FirebaseFirestore.instance.collection('foodbank');
+    QuerySnapshot querySnapshot = await foodbanks.get();
+    for (var doc in querySnapshot.docs) {
+      if (doc['username'] == username) {
+        foodbank = doc['name'];
+      }
+    }
   }
 
   static void loadFoodbanks() async {
