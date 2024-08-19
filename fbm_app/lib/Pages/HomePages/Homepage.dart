@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/Restaurant/Rprofile.dart';
@@ -36,10 +35,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-    NotificationClass('Leaderboard',
-        '${LeaderboardClass.winnerDonation} is no.1 donor', false);
-    NotificationClass('Leaderboard',
-        '${LeaderboardClass.winnerVolunteer} is no.1 volunteer', false);
     List<String> idioms = [
       "\"Share your food; feed a hungry heart today.\"",
       "\"One meal can make a world of difference.\"",
