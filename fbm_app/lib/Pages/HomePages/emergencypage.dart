@@ -10,7 +10,7 @@ class Emergency extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text_Theme.text_size("MY DONATIONS", 20),
+          title: Text_Theme.text_size("EMERGENCY", 20),
           leading: Padding(
               padding: EdgeInsets.all(4),
               child: Image.asset(

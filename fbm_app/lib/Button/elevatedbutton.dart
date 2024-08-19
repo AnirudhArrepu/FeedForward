@@ -1,6 +1,7 @@
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class button2 extends StatelessWidget {
   const button2({super.key});
@@ -8,8 +9,16 @@ class button2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/home');
+        onPressed: () async {
+          final Uri phoneNumber = Uri(
+            scheme: 'tel',
+            path: '112',
+          );
+          if (await canLaunchUrl(phoneNumber)) {
+            await launchUrl(phoneNumber);
+          } else {
+            throw 'Could not launch $phoneNumber';
+          }
         },
         style: ElevatedButton.styleFrom(
           shape: const CircleBorder(),

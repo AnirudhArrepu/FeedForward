@@ -10,7 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/classes/data_class.dart';
 
 class DonationForm extends StatefulWidget {
-  const DonationForm({super.key});
+  final String foodbank;
+  const DonationForm({super.key, required this.foodbank});
 
   @override
   State<DonationForm> createState() => _DonationFormState();

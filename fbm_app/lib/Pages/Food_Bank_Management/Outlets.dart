@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fbm_app/Pages/Forms/donationform.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:fbm_app/classes/data_class.dart';
@@ -59,13 +60,16 @@ class _OutletsState extends State<Outlets> {
                             ListTile(
                               title: Text_Theme.text_size(outlet, 25),
                             ),
-                            const Row(
+                            Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                butt(
-                                  text: 'DONATE',
-                                  routeName: '/d_form',
-                                  icon: Icon(Icons.handshake_rounded),
+                                FloatingActionButton.extended(
+                                  label: Text_Theme.text_white("Donate"),
+                                  backgroundColor: AppTheme.secondaryColor,
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder:(c) => DonationForm(foodbank: outlet)));
+                                  },
+                                  icon: Icon(Icons.handshake),
                                 ),
                               ],
                             ),
