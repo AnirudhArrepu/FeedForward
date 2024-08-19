@@ -40,16 +40,15 @@ class _HomepageState extends State<Homepage> {
     NotificationClass('Leaderboard',
         '${LeaderboardClass.winnerVolunteer} is no.1 volunteer', false);
     List<String> idioms = [
-      "Share your food; feed a hungry heart today.",
-      "One meal can make a world of difference.",
-      "Your donation: a lifeline to someone in need.",
-      "Help us turn hunger into hope with your generosity.",
-      "Feed a family; make a lasting impact with your gift.",
-      "Small act, big change: donate food and spread kindness.",
-      "Every can counts—help us end hunger together.",
-      "Give food, give hope; be a hero in someones life.",
-      "Share your abundance; brighten someones day with a meal.",
-      "Together, we can turn hunger into hope. Donate now!"
+      "\"Share your food; feed a hungry heart today.\"",
+      "\"One meal can make a world of difference.\"",
+      "\"Your donation: a lifeline to someone in need.\"",
+      "\"Help us turn hunger into hope with your generosity.\"",
+      "\"Feed a family; make a lasting impact with your gift.\"",
+      "\"Small act, big change: donate food and spread kindness.\"",
+      "\"Every can counts—help us end hunger together.\"",
+      "\"Give food, give hope; be a hero in someones life.\"",
+      "\"Together, we can turn hunger into hope. Donate now!\""
     ];
     return Scaffold(
         backgroundColor: AppTheme.bgcolor(),
@@ -65,105 +64,109 @@ class _HomepageState extends State<Homepage> {
           title: Text_Theme.text_size("NOTIFICATIONS", 20),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                SingleChildScrollView(
-                  child: Container(
-                      height: 425,
-                      child: ListView.builder(
-                          itemCount: NotificationClass.notifications.length,
-                          itemBuilder: (context, index) {
-                            final noti = NotificationClass.notifications[index];
-                            return Card(
-                                margin: const EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 16.0),
-                                child: ListTile(
-                                  title: Text_Theme.text_size(noti.title, 20),
-                                  subtitle:
-                                      Text_Theme.text_size(noti.subtitle, 15),
-                                ));
-                          })),
-                ),
-                Container(
-                  height: 10,
-                  child: GestureDetector(onDoubleTap: () {
-                    Navigator.pushNamed(context, '/emergency');
-                  }),
-                ),
-                Container(
-                  height: 40,
-                  child: Text_Theme.text_white(
-                      idioms[Random().nextInt(idioms.length)]),
-                ),
-                SizedBox(
-                  height: 70,
-                ),
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  SizedBox(
-                    width: 90,
+        body: GestureDetector(
+          onDoubleTap:() => {
+            Navigator.pushNamed(context, '/emergency'),
+          },
+          child: SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SingleChildScrollView(
+                    child: Container(
+                        height: 325,
+                        child: ListView.builder(
+                            itemCount: NotificationClass.notifications.length,
+                            itemBuilder: (context, index) {
+                              final noti = NotificationClass.notifications[index];
+                              return Card(
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 10.0, horizontal: 16.0),
+                                  child: ListTile(
+                                    title: Text_Theme.text_size(noti.title, 20),
+                                    subtitle:
+                                        Text_Theme.text_size(noti.subtitle, 15),
+                                  ));
+                            })),
                   ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (r == 0) {
-                        {
+                  SizedBox(
+                    height: 75,
+                  ),
+                  Center(
+                    child: Container(
+                      height: 40,
+                      child: Text_Theme.text_white(
+                          idioms[Random().nextInt(idioms.length)]),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 70,
+                  ),
+                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                    SizedBox(
+                      width: 90,
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        if (r == 0) {
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (c) =>
+                                        FbProfile(proDetails: Profile)));
+                          }
+                        }
+                        if (r == 1) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (c) =>
-                                      FbProfile(proDetails: Profile)));
+                                      RestaurantProfile(RDetails: Profile)));
                         }
-                      }
-                      if (r == 1) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (c) =>
-                                    RestaurantProfile(RDetails: Profile)));
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 243, 4, 4),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 85, vertical: 15)),
-                    child: Text(
-                      "PROFILE",
-                      style: TextStyle(color: Colors.white, fontSize: 15),
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 243, 4, 4),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 85, vertical: 15)),
+                      child: Text(
+                        "PROFILE",
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
                     ),
+                  ]),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(width: 60),
+                      SizedBox(width: 80),
+                      butt(
+                          text: "    MAP      ",
+                          routeName: "/map",
+                          icon: Icon(Icons.location_on)),
+                    ],
+                  ),
+                  SizedBox(height: 15),
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    butt(
+                        text: "LEADERBOARD",
+                        routeName: "/leaderboard",
+                        icon: Icon(Icons.emoji_events)),
+                    SizedBox(width: 10),
+                    butt(
+                        text: "WASTE\nMANAGEMENT",
+                        routeName: "/waste",
+                        icon: Icon(Icons.recycling_rounded)),
+                  ]),
+                  SizedBox(
+                    height: 50,
                   ),
                 ]),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    SizedBox(width: 60),
-                    SizedBox(width: 80),
-                    butt(
-                        text: "    MAP      ",
-                        routeName: "/map",
-                        icon: Icon(Icons.location_on)),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  butt(
-                      text: "LEADERBOARD",
-                      routeName: "/leaderboard",
-                      icon: Icon(Icons.emoji_events)),
-                  SizedBox(width: 10),
-                  butt(
-                      text: "WASTE\nMANAGEMENT",
-                      routeName: "/waste",
-                      icon: Icon(Icons.recycling_rounded)),
-                ]),
-                SizedBox(
-                  height: 50,
-                ),
-              ]),
+          ),
         ));
   }
 }
