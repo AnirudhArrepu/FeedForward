@@ -2,17 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 
 class volunteers_info extends StatelessWidget {
-  const volunteers_info({super.key});
-
+  volunteers_info({super.key});
+  String foodbank = DataClass.foodbank;
   // Fetch foodbank name based on the GeoPoint location
-  Future<String?> _getFoodBankName(GeoPoint location) async {
+  Future<String?> _getFoodBankName() async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('foodbank')
-          .where('location', isEqualTo: location) // Correct syntax
+          .where('name', isEqualTo: foodbank) // Correct syntax
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
@@ -57,8 +58,7 @@ class volunteers_info extends StatelessWidget {
         ),
       ),
       body: FutureBuilder<String?>(
-        future: _getFoodBankName(
-            targetLocation), // Fetch the foodbank name based on location
+        future: _getFoodBankName(), // Fetch the foodbank name based on location
         builder: (context, foodbankSnapshot) {
           if (foodbankSnapshot.connectionState == ConnectionState.waiting) {
             return const Center(
