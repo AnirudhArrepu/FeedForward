@@ -20,6 +20,7 @@ import 'package:fbm_app/Pages/HomePages/map.dart';
 import 'package:fbm_app/Pages/Forms/volunteer_reg.dart';
 import 'package:fbm_app/Pages/Food_Bank_Management/volunteers_info.dart';
 import 'package:fbm_app/Pages/HomePages/wastemanagement.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:fbm_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DataClass.loadFoodbanks();
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
@@ -50,27 +52,33 @@ class MyApp extends StatelessWidget {
       initialRoute: '/login',
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/home': (context) => const Homepage(userDetails:{},),
-        '/profile': (context) => const FbProfile(proDetails: {},),
+        '/home': (context) => const Homepage(
+              userDetails: {},
+            ),
+        '/profile': (context) => const FbProfile(
+              proDetails: {},
+            ),
         '/map': (context) => const MapOutlets(),
         '/leaderboard': (context) => const leaderboard(),
         '/waste': (context) => const waste(),
         '/inventory': (context) => const Inventory(),
         '/volunteers': (context) => const Volunteers(),
         '/fb_info': (context) => const Food_Bank_Management(),
-        '/v_info': (context) =>  volunteers_info(),
+        '/v_info': (context) => volunteers_info(),
         '/mydonations': (conetxt) => const Donations(),
         '/outlets': (context) => const Outlets(),
         '/restaurants': (context) => const Restaurants(),
         '/listfb': (context) => const FB_Connected(),
-        '/rprofile': (context) => const RestaurantProfile(RDetails: {},),
+        '/rprofile': (context) => const RestaurantProfile(
+              RDetails: {},
+            ),
         '/d_form': (context) => const DonationForm(),
         '/vform': (context) => VolunteerForm(),
         '/emergency': (context) => const Emergency(),
         '/cooked_food': (context) => const CookedFood(),
         '/packaged_food': (context) => const PackagedFood(),
         '/staple_food': (context) => const StapleFood(),
-        '/create_fb': (context) =>  CreateFoodBank(),
+        '/create_fb': (context) => CreateFoodBank(),
       },
     );
   }
