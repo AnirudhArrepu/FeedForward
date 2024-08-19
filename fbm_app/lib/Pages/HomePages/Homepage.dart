@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/Restaurant/Rprofile.dart';
 import 'package:fbm_app/Pages/User/FB_profile.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
@@ -89,11 +90,13 @@ class _HomepageState extends State<Homepage> {
                   ElevatedButton(
                     onPressed: () {
                       if (r == 0) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (c) =>
-                                    FbProfile(proDetails: Profile)));
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) =>
+                                      FbProfile(proDetails: Profile)));
+                        }
                       }
                       if (r == 1) {
                         Navigator.push(

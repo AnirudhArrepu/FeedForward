@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fbm_app/Button/button.dart';
 import 'package:latlong2/latlong.dart';
@@ -20,7 +21,7 @@ class _OutletsState extends State<Outlets> {
   @override
   void initState() {
     super.initState();
-    loadFoodBankDetails();
+    outlets = DataClass.foodbankWithoutLocation;
   }
 
   @override
@@ -42,7 +43,7 @@ class _OutletsState extends State<Outlets> {
             Container(
                 height: 800,
                 child: ListView.builder(
-                    itemCount:5,
+                    itemCount: outlets.length,
                     itemBuilder: (context, index) {
                       final outlet = outlets[index];
                       Container(
@@ -74,19 +75,19 @@ class _OutletsState extends State<Outlets> {
         ));
   }
 
-  Future<void> loadFoodBankDetails() async {
-    CollectionReference foodbankcollection =
-        FirebaseFirestore.instance.collection('foodbank');
+  // Future<void> loadFoodBankDetails() async {
+  //   CollectionReference foodbankcollection =
+  //       FirebaseFirestore.instance.collection('foodbank');
 
-    QuerySnapshot queryfoodbank = await foodbankcollection.get();
+  //   QuerySnapshot queryfoodbank = await foodbankcollection.get();
 
-    for (var doc in queryfoodbank.docs) {
-      String name = doc['name'];
-      print(name);
-      // if (outlets.contains('AkshayPatra')) {
-      //   continue;
-      // }
-      outlets.add(name);
-    }
-  }
+  //   for (var doc in queryfoodbank.docs) {
+  //     String name = doc['name'];
+  //     print(name);
+  //     // if (outlets.contains('AkshayPatra')) {
+  //     //   continue;
+  //     // }
+  //     outlets.add(name);
+  //   }
+  // }
 }
