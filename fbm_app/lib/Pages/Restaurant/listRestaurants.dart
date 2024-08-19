@@ -60,30 +60,30 @@ class _RestaurantsState extends State<Restaurants> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  restaurant['name'] ?? 'Restaurant Name',
+                  'Name :${restaurant['name']}' ?? 'Restaurant Name',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                 SizedBox(height: 10),
                 Text(
-                  restaurant['address'] ?? 'Restaurant Address',
+                  'Address :${restaurant['address']}' ?? 'Restaurant Address',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                
                 SizedBox(height: 10),
                 Text(
-                  restaurant['contactnum'] ?? 'Restaurant Contactno',
+                  'Contact no:${restaurant['contactnum']}' ?? 'Restaurant Contactno',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white,
-                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                 
