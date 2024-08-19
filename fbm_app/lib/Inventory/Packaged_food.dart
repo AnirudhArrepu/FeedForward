@@ -62,7 +62,7 @@ class _PackagedFoodState extends State<PackagedFood> {
       appBar: AppBar(
         backgroundColor: AppTheme.titleColor(),
         title: const Text(
-          "Cooked Food",
+          "Packaged Food",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Color.fromARGB(235, 0, 0, 0),
