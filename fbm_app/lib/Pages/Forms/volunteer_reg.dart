@@ -31,85 +31,86 @@ class _VolunteerFormState extends State<VolunteerForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppTheme.primaryColor,
-        appBar: AppBar(
-          elevation: 10,
-          backgroundColor: Colors.white,
-          title: const Text(
-            'Volunteer Form',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 32,
-              color: Color.fromARGB(255, 0, 0, 0),
-            ),
+      backgroundColor: AppTheme.primaryColor,
+      appBar: AppBar(
+        elevation: 10,
+        backgroundColor: Colors.white,
+        title: const Text(
+          'Volunteer Form',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 32,
+            color: Color.fromARGB(255, 0, 0, 0),
           ),
-          centerTitle: false,
         ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 50),
-                TextField(
-                    controller: _userNameController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter the username',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                          color: Colors.white),
-                    ),
-                    style: TextStyle(color: Colors.white)),
-                SizedBox(height: 25),
-                TextField(
-                    controller: _hoursController,
-                    decoration: InputDecoration(
-                      labelText: 'Number of hours worked',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                          color: Colors.white),
-                    ),
-                    style: TextStyle(color: Colors.white)),
-                SizedBox(height: 25),
-                TextField(
-                    controller: _foodbankController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter the FoodBank:',
-                      labelStyle: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 24,
-                          color: Colors.white),
-                    ),
-                    style: TextStyle(color: Colors.white)),
-                SizedBox(height: 50),
-                ElevatedButton(
-                    onPressed: () async {
-                      // Parse the hours worked input to an integer
-                      int hoursWorked =
-                          int.tryParse(_hoursController.text) ?? 0;
+        centerTitle: false,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(height: 50),
+              TextField(
+                  controller: _userNameController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter the username',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                        color: Colors.white),
+                  ),
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(height: 25),
+              TextField(
+                  controller: _hoursController,
+                  decoration: InputDecoration(
+                    labelText: 'Number of hours worked',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                        color: Colors.white),
+                  ),
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(height: 25),
+              TextField(
+                  controller: _foodbankController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter the FoodBank:',
+                    labelStyle: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 24,
+                        color: Colors.white),
+                  ),
+                  style: TextStyle(color: Colors.white)),
+              SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: () async {
+                  // Parse the hours worked input to an integer
+                  int hoursWorked = int.tryParse(_hoursController.text) ?? 0;
 
-                      // Call the function to save the data to Firestore
-                      await _saveUserData(_userNameController.text, hoursWorked,
-                          _foodbankController.text);
+                  // Call the function to save the data to Firestore
+                  await _saveUserData(_userNameController.text, hoursWorked,
+                      _foodbankController.text);
 
-                      // Show a Snackbar to confirm data submission
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Data saved successfully')),
-                      );
+                  // Show a Snackbar to confirm data submission
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Data saved successfully')),
+                  );
 
-                      // Clear the input fields after submission
-                      _userNameController.clear();
-                      _hoursController.clear();
-                    },
-                    child: Text(
-                      "SUBMIT",
-                    ))
-              ],
-            ),
+                  // Clear the input fields after submission
+                  _userNameController.clear();
+                  _hoursController.clear();
+                },
+                child: Text(
+                  "SUBMIT",
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
