@@ -1,12 +1,6 @@
-import 'package:fbm_app/Pages/Food_Bank_Management/Outlets.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
-import 'package:fbm_app/Button/button.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/classes/data_class.dart';
 
@@ -22,68 +16,76 @@ class _DonationFormState extends State<DonationForm> {
   static List<ItemDonationWidget> widgets = [];
 
   void addWidgets() {
-    widgets.add(const ItemDonationWidget());
+    // Pass the foodbank value to the ItemDonationWidget constructor and assign a GlobalKey
+    widgets.add(ItemDonationWidget(
+      key: GlobalKey<_ItemDonationWidgetState>(),
+      foodbank: widget.foodbank,
+    ));
     setState(() {});
+  }
+
+  Future<void> submitDonation() async {
+    for (var widget in widgets) {
+      print("submitDonation: Calling saveDonation for ${widget.foodbank}");
+      await widget.saveDonation(context); // Pass context to show SnackBar
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppTheme.primaryColor,
-        appBar: AppBar(
-          title: const Text("Donation Form",
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(235, 0, 0, 0))),
-          centerTitle: false,
+      backgroundColor: AppTheme.primaryColor,
+      appBar: AppBar(
+        title: const Text("Donation Form",
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Color.fromARGB(235, 0, 0, 0))),
+        centerTitle: false,
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20),
+            for (int i = 0; i < widgets.length; i++) widgets[i],
+            SizedBox(height: 40),
+            FloatingActionButton.extended(
+              label: Text("Donation"),
+              backgroundColor: AppTheme.secondaryColor,
+              onPressed: () async {
+                print("Hello");
+                await submitDonation();
+              },
+              icon: Icon(Icons.handshake),
+            ),
+            SizedBox(height: 20),
+            FloatingActionButton.extended(
+              label: const Text("Add Item"),
+              icon: const Icon(Icons.add),
+              onPressed: addWidgets,
+            ),
+          ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 20),
-              //
-              for (int i = 0; i < widgets.length; i++) widgets[i],
-              //
-              Row(children: [
-                SizedBox(height: 40, width: 135),
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: FloatingActionButton.extended(
-                    label: Text_Theme.text_white("Donation"),
-                    backgroundColor: AppTheme.secondaryColor,
-                    onPressed: () async {
-                      await _ItemDonationWidgetState()._saveUserData();
-                      await _ItemDonationWidgetState()._addFoodItem(
-                          _ItemDonationWidgetState().Selected_item,
-                          _ItemDonationWidgetState().controller_name.text,
-                          int.parse(_ItemDonationWidgetState()
-                              .controller_quantity
-                              .text),
-                          DateTime.parse(_ItemDonationWidgetState()
-                              .controller_expirydate
-                              .text));
-                    },
-                    icon: Icon(Icons.handshake),
-                  ),
-                ),
-              ]),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: FloatingActionButton.extended(
-                  label: Text(""),
-                  icon: Icon(Icons.add),
-                  onPressed: addWidgets,
-                ),
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
 
 class ItemDonationWidget extends StatefulWidget {
-  const ItemDonationWidget({super.key});
+  final String foodbank; // Accept foodbank as a parameter
+
+  const ItemDonationWidget({super.key, required this.foodbank});
+
+  Future<void> saveDonation(BuildContext context) async {
+    print("saveDonation: Starting saveDonation for ${foodbank}");
+    final state = _ItemDonationWidgetState.of(this);
+    if (state == null) {
+      print("saveDonation: Error - State is null!");
+      return;
+    }
+    await state.saveUserData(context);
+    await state.addFoodItem(context);
+  }
 
   @override
   State<ItemDonationWidget> createState() => _ItemDonationWidgetState();
@@ -93,58 +95,86 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
   final List<String> _selected = [
     'Staple Food',
     'Packaged Food',
-    'Coocked Food',
+    'Cooked Food',
   ];
-  String Selected_item = 'Staple Food';
+  String selectedFoodType = 'Staple Food';
 
-  TextEditingController controller_quantity = TextEditingController();
-  TextEditingController controller_name = TextEditingController();
-  TextEditingController controller_expirydate = TextEditingController();
+  TextEditingController controllerQuantity = TextEditingController();
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerExpiryDate = TextEditingController();
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   String? documentId;
 
-  Future<void> _saveUserData() async {
+  static _ItemDonationWidgetState? of(ItemDonationWidget widget) {
+    print("Retrieving state for widget: ${widget.foodbank}");
+    return widget.key is GlobalKey<_ItemDonationWidgetState>
+        ? (widget.key as GlobalKey<_ItemDonationWidgetState>).currentState
+        : null;
+  }
+
+  Future<void> saveUserData(BuildContext context) async {
     try {
+      print("saveUserData: Starting to save user data for ${widget.foodbank}");
       DocumentReference donationRef =
           await _firestore.collection('donations').add({
         'username': DataClass.username,
-
-        //'foodbank': foodbank,
+        'foodbank': widget.foodbank, // Access foodbank from widget
       });
+      print("saveUserData: Donation data saved with ID: ${donationRef.id}");
+
       setState(() {
         documentId = donationRef.id;
       });
 
-      print("Data saved successfully with document ID: $documentId");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Donation data saved successfully!')),
+      );
     } catch (e) {
-      print("Error saving data: $e");
+      print("Error in saveUserData: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error saving donation data: $e')),
+      );
     }
   }
 
-  Future<void> _addFoodItem(String collectionName, String itemName,
-      int quantity, DateTime expiryDate) async {
+  Future<void> addFoodItem(BuildContext context) async {
     try {
+      print("addFoodItem: Starting to add food item for ${widget.foodbank}");
       if (documentId == null) {
-        print("Error: Document ID is null");
+        print("addFoodItem: Error - Document ID is null");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: Document ID is null')),
+        );
         return;
       }
 
-      // Add a new item to the selected subcollection under donations
+      int quantity = int.tryParse(controllerQuantity.text) ?? 0;
+      DateTime expiryDate =
+          DateTime.tryParse(controllerExpiryDate.text) ?? DateTime.now();
+
       await _firestore
           .collection('donations')
           .doc(documentId)
-          .collection(collectionName)
+          .collection(selectedFoodType)
           .add({
-        'itemName': itemName,
+        'itemName': controllerName.text,
         'quantity': quantity,
         'expiryDate': Timestamp.fromDate(expiryDate),
       });
 
-      print("Food item added successfully to $collectionName");
+      print("addFoodItem: Food item added successfully to $selectedFoodType");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content:
+                Text('Food item added successfully to $selectedFoodType!')),
+      );
     } catch (e) {
-      print("Error adding food item: $e");
+      print("Error in addFoodItem: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error adding food item: $e')),
+      );
     }
   }
 
@@ -156,11 +186,11 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text_Theme.text_colored(
-                "Select Food Type", 24, Color.fromARGB(221, 0, 0, 0)),
+                "Select Food Type", 24, const Color.fromARGB(221, 0, 0, 0)),
           ),
           const SizedBox(height: 10),
           DropdownButton<String>(
-            value: Selected_item,
+            value: selectedFoodType,
             items: _selected.map(
               (String dropDownStringItem) {
                 return DropdownMenuItem(
@@ -171,34 +201,34 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
             ).toList(),
             onChanged: (String? newSelectedValue) {
               setState(() {
-                Selected_item = newSelectedValue!;
+                selectedFoodType = newSelectedValue!;
               });
             },
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-                controller: controller_name,
+                controller: controllerName,
                 decoration: const InputDecoration(
-                    hintText: "Enter your quantity in kg/meals",
+                    hintText: "Enter Item Name",
                     hintStyle: TextStyle(color: Colors.black54),
                     border: OutlineInputBorder())),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-                controller: controller_quantity,
+                controller: controllerQuantity,
                 decoration: const InputDecoration(
-                    hintText: "Enter your quantity in kg/meals",
+                    hintText: "Enter Quantity in kg/meals",
                     hintStyle: TextStyle(color: Colors.black54),
                     border: OutlineInputBorder())),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
-                controller: controller_expirydate,
+                controller: controllerExpiryDate,
                 decoration: const InputDecoration(
-                    hintText: "Enter expiry date",
+                    hintText: "Enter Expiry Date (YYYY-MM-DD)",
                     hintStyle: TextStyle(color: Colors.black54),
                     border: OutlineInputBorder())),
           ),

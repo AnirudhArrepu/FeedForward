@@ -49,7 +49,7 @@ class _OutletsState extends State<Outlets> {
           "OUTLETS",
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: Color.fromARGB(255, 0, 0, 0),
           ),
         ),
         centerTitle: true,

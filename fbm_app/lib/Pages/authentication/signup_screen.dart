@@ -193,7 +193,7 @@ class _SignupScreenState extends State<SignupScreen>
                     const SizedBox(height: 40,),
                      TextField(
                       controller: addressTextEditingController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText:"Address ",
                         labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
