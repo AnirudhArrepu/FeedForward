@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Button/aligned_button.dart';
 // ignore: unused_import
 import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
+import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
 
 class Donations extends StatefulWidget {
@@ -12,25 +15,35 @@ class Donations extends StatefulWidget {
 }
 
 class _DonationsState extends State<Donations> {
-
   @override
   void initState() {
     super.initState();
-    setState(() {
-      
-    });
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, String>> Donations = [
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-      {'title': 'FOOD BANK NAME:', 'body': 'No of Meals Donated:'},
-    ];
+    final List<Map<String, int>> Donations = [];
+
+    void loadUserDonations() async {
+      CollectionReference donations =
+          FirebaseFirestore.instance.collection('donations');
+      QuerySnapshot querySnapshot = await donations.get();
+
+      for (var doc in querySnapshot.docs) {
+        if (doc["username"] == DataClass.username) {
+          String foodbank_name = doc['foodbank'];
+          int points = LeaderboardClass.userPointsDonations[doc['username']]!;
+          Donations.add({foodbank_name: points });
+        }
+      }
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      loadUserDonations();
+    }
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -50,24 +63,24 @@ class _DonationsState extends State<Donations> {
             Container(
                 height: 550,
                 child: ListView.builder(
-                    itemCount: 7,
+                    itemCount: Donations.length,
                     itemBuilder: (context, index) {
-                      final donation = Donations[index];
+                      Map<String, int> donation = Donations[index];
                       return Card(
                           margin: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 16.0),
                           child: ListTile(
-                            title: Text_Theme.text_size(donation['title']!, 20),
+                            title: Text_Theme.text_size('Foodbank: ${donation.keys.first}', 20),
                             subtitle:
-                                Text_Theme.text_size(donation['body']!, 15),
+                                Text_Theme.text_size('Points: ${donation.values.first}', 15),
                           ));
                     })),
             Container(
-                  height: 50,
-                  child: GestureDetector(onDoubleTap: () {
-                    Navigator.pushNamed(context, '/emergency');
-                  }),
-                ),
+              height: 50,
+              child: GestureDetector(onDoubleTap: () {
+                Navigator.pushNamed(context, '/emergency');
+              }),
+            ),
             SizedBox(
               height: 100,
             ),

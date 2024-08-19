@@ -21,6 +21,7 @@ import 'package:fbm_app/Pages/HomePages/map.dart';
 import 'package:fbm_app/Pages/Forms/volunteer_reg.dart';
 import 'package:fbm_app/Pages/Food_Bank_Management/volunteers_info.dart';
 import 'package:fbm_app/Pages/HomePages/wastemanagement.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:fbm_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DataClass.loadFoodbanks();
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
