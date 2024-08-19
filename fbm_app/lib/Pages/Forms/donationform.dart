@@ -19,6 +19,9 @@ class _DonationFormState extends State<DonationForm> {
 
   void addWidgets() {
     widgets.add(const ItemDonationWidget());
+    setState(() {
+      
+    });
   }
 
   @override

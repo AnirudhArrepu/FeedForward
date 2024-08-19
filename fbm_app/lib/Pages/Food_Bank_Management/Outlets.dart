@@ -21,6 +21,7 @@ class _OutletsState extends State<Outlets> {
   @override
   void initState() {
     super.initState();
+    DataClass.loadFoodbanks();
     outlets = DataClass.foodbankWithoutLocation;
   }
 
