@@ -25,30 +25,6 @@ class leaderboard extends StatelessWidget {
           const SizedBox(
             height: 70,
           ),
-          TextField(
-            controller: TextEditingController(text: 'Number of meals donated'),
-            readOnly: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-          ),
-          const SizedBox(
-            height: 30,
-          ),
-          TextField(
-            controller: TextEditingController(text: 'Number of active users'),
-            readOnly: true,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              filled: true,
-              fillColor: Colors.white,
-            ),
-          ),
-          SizedBox(
-            height: 30,
-          ),
           Container(
             color: Colors.brown,
             height: 30,
