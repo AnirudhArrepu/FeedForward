@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
@@ -10,9 +11,18 @@ class Volunteers extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<Map<String, String>> Volunteers = [];
 
-    void getVolunteerInfo(){
-      
+    void getVolunteerInfo() async {
+      CollectionReference volunteer =
+          FirebaseFirestore.instance.collection('volunteers');
+      QuerySnapshot querySnapshot = await volunteer.get();
+
+      for (var doc in querySnapshot.docs) {
+        String name = doc['foodbank'];
+        int hours = doc['hours'];
+        Volunteers.add({name: hours.toString()});
+      }
     }
+
     return Scaffold(
         backgroundColor: AppTheme.primaryColor,
         appBar: AppBar(
