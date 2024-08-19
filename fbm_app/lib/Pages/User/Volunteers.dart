@@ -8,16 +8,11 @@ class Volunteers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<String> volunteer = ['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7'];
-    final List<Map<String, String>> Volunteers = [
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-      {'title': 'FoodBank:', 'body': 'No of Hours Volunteered:'},
-    ];
+    final List<Map<String, String>> Volunteers = [];
+
+    void getVolunteerInfo(){
+      
+    }
     return Scaffold(
         backgroundColor: AppTheme.primaryColor,
         appBar: AppBar(
@@ -32,19 +27,19 @@ class Volunteers extends StatelessWidget {
         body: Stack(
           children: [
             ListView.builder(
-              itemCount: volunteer.length,
+              itemCount: Volunteers.length,
               itemBuilder: (BuildContext context, int index) {
-                final serial = volunteer[index];
+                final serial = index + 1;
                 final volun = Volunteers[index];
                 return Card(
                     margin:
                         EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                     child: ListTile(
                       title: Column(children: [
-                        Text_Theme.text_size(serial, 22),
-                        Text_Theme.text_size(volun['title']!, 22),
+                        Text_Theme.text_size(serial.toString(), 22),
+                        Text_Theme.text_size(volun.keys.first, 22),
                       ]),
-                      subtitle: Text_Theme.text_size(volun['body']!, 22),
+                      subtitle: Text_Theme.text_size(volun.values.first, 22),
                     ));
               },
             ),

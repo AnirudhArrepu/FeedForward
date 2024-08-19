@@ -1,14 +1,21 @@
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:location/location.dart';
+import 'package:fbm_app/classes/data_class.dart';
 
-class CreateFoodBank extends StatelessWidget {
+class CreateFoodBank extends StatefulWidget {
+  @override
+  _CreateFoodBank createState() => _CreateFoodBank();
+}
+
+class _CreateFoodBank extends State<CreateFoodBank> {
   final TextEditingController _foodBankNameController = TextEditingController();
   final TextEditingController _contactInfoController = TextEditingController();
   final TextEditingController _cityNameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-
-  CreateFoodBank({super.key});
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void clearButton() {
     _foodBankNameController.clear();
@@ -18,6 +25,19 @@ class CreateFoodBank extends StatelessWidget {
   }
 
   void submit() {}
+  Future<void> _saveUserData(
+      String name, String cityname, String address, int contactinfo) async {
+    try {
+      await _firestore.collection('foodbank').add({
+        'name': name,
+        'username': DataClass.username,
+        'contactinfo': contactinfo,
+      });
+      print("Data saved successfully");
+    } catch (e) {
+      print("Error saving data: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +140,30 @@ class CreateFoodBank extends StatelessWidget {
                     child: Text('Clear All'),
                   ),
                   ElevatedButton(
-                    onPressed: submit,
-                    child: Text('Submit'),
+                    onPressed: () async {
+                      // Parse the hours worked input to an integer
+
+                      // Call the function to save the data to Firestore
+                      await _saveUserData(
+                          _foodBankNameController.text,
+                          _cityNameController.text,
+                          _addressController.text,
+                          int.parse(_contactInfoController.text));
+
+                      // Show a Snackbar to confirm data submission
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Data saved successfully')),
+                      );
+
+                      // Clear the input fields after submission
+                      _foodBankNameController.clear();
+                      _contactInfoController.clear();
+                      _cityNameController.clear();
+                      _addressController.clear();
+                    },
+                    child: Text(
+                      "SUBMIT",
+                    ),
                   ),
                 ],
               ),
