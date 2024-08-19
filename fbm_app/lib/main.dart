@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         '/cooked_food': (context) => const CookedFood(),
         '/packaged_food': (context) => const PackagedFood(),
         '/staple_food': (context) => const StapleFood(),
-        '/create_fb': (context) => CreateFoodBank(),
+        '/create_fb': (context) =>  CreateFoodBank(),
       },
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/Restaurant/Rprofile.dart';
@@ -37,7 +39,18 @@ class _HomepageState extends State<Homepage> {
         '${LeaderboardClass.winnerDonation} is no.1 donor', false);
     NotificationClass('Leaderboard',
         '${LeaderboardClass.winnerVolunteer} is no.1 volunteer', false);
-
+    List<String> idioms = [
+      "Share your food; feed a hungry heart today.",
+      "One meal can make a world of difference.",
+      "Your donation: a lifeline to someone in need.",
+      "Help us turn hunger into hope with your generosity.",
+      "Feed a family; make a lasting impact with your gift.",
+      "Small act, big change: donate food and spread kindness.",
+      "Every can counts—help us end hunger together.",
+      "Give food, give hope; be a hero in someones life.",
+      "Share your abundance; brighten someones day with a meal.",
+      "Together, we can turn hunger into hope. Donate now!"
+    ];
     return Scaffold(
         backgroundColor: AppTheme.bgcolor(),
         appBar: AppBar(
@@ -75,10 +88,15 @@ class _HomepageState extends State<Homepage> {
                           })),
                 ),
                 Container(
-                  height: 50,
+                  height: 10,
                   child: GestureDetector(onDoubleTap: () {
                     Navigator.pushNamed(context, '/emergency');
                   }),
+                ),
+                Container(
+                  height: 40,
+                  child: Text_Theme.text_white(
+                      idioms[Random().nextInt(idioms.length)]),
                 ),
                 SizedBox(
                   height: 70,
