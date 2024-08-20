@@ -19,7 +19,8 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
   void loadingLeaderboard() async {
     // await LeaderboardClass.allocatePointsDonations();
     await LeaderboardClass.allocatePointsVolunteers();
-    LeaderboardClass.allocatePointsDonations();
+    // await LeaderboardClass.allocatePointsDonations();
+    LeaderboardClass.rankUsersVolunteers();
     setState(() {});
   }
 
@@ -61,30 +62,26 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
             Container(
               color: Colors.brown,
               height: 500,
-              child: LeaderboardClass.userPointsDonations.length == 0
-                  ? CircularProgressIndicator()
-                  : ListView.builder(
-                      itemCount: LeaderboardClass
-                                  .userPointsSortedVolunteers.length <
-                              10
-                          ? LeaderboardClass.userPointsSortedVolunteers.length
-                          : 10,
-                      itemBuilder: (BuildContext context, int index) {
-                        var user = LeaderboardClass
-                            .userPointsSortedVolunteers.entries
-                            .toList()[index]
-                            .key;
-                        return ListTile(
-                          leading: Text(
-                            '${index + 1}',
-                            style: const TextStyle(
-                              fontSize: 15,
-                            ),
-                          ),
-                          title: Text(user),
-                        );
-                      },
+              child: ListView.builder(
+                itemCount:
+                    LeaderboardClass.userPointsSortedVolunteers.length < 10
+                        ? LeaderboardClass.userPointsSortedVolunteers.length
+                        : 10,
+                itemBuilder: (BuildContext context, int index) {
+                  var user = LeaderboardClass.userPointsSortedVolunteers.entries
+                      .toList()[index]
+                      .key;
+                  return ListTile(
+                    leading: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        fontSize: 15,
+                      ),
                     ),
+                    title: Text(user),
+                  );
+                },
+              ),
             ),
           ]),
         ));
