@@ -210,7 +210,7 @@ class _HomepageState extends State<Homepage> {
       floatingActionButton: FloatingActionButton(
         onPressed: _scrollToBottom,
         child: Icon(Icons.keyboard_arrow_down),
-        backgroundColor: Color.fromARGB(255, 243, 4, 4),
+        backgroundColor: Colors.white,
       ),
     );
   }
