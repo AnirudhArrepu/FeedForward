@@ -13,23 +13,27 @@ class Food_Bank_Management extends StatefulWidget {
 }
 
 class _Food_Bank_ManagementState extends State<Food_Bank_Management> {
-  void loadData() async{
-    String foodbank = DataClass.foodbank;
-    CollectionReference foodbanks =
-        FirebaseFirestore.instance.collection('foodbank');
-    QuerySnapshot querySnapshot = await foodbanks.get();
+ String currentfoodbank = DataClass.foodbank;
 
-    for(var doc in querySnapshot.docs){
-      if(doc['name']==DataClass.foodbank){
-        
-      }
-    }
-  }
+ Map<String, dynamic > foodbankdata = {};
+ bool load = true;
 
-  @override
+ @override
   void initState() {
     super.initState();
-    loadData();
+    getFoodBankDetails();
+  }
+
+  Future<void> getFoodBankDetails() async {
+    // Fetch the food bank details based on the food bank name
+    QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('foodbank').where('name', isEqualTo: currentfoodbank).get();
+
+    if (snapshot.docs.isNotEmpty) {
+      setState(() {
+        foodbankdata = snapshot.docs.first.data() as Map<String, dynamic>;
+        load = false;
+      });
+    }
   }
 
   @override
@@ -49,7 +53,8 @@ class _Food_Bank_ManagementState extends State<Food_Bank_Management> {
         ),
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
+      body: load? Center(child: CircularProgressIndicator()) 
+          : SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -67,7 +72,7 @@ class _Food_Bank_ManagementState extends State<Food_Bank_Management> {
             SizedBox(
               height: 5,
             ),
-            Text_Theme.text_field("FOOD BANK NAME", 20),
+            Text_Theme.text_field( '${foodbankdata['name']}', 20),
             SizedBox(
               height: 30,
             ),
@@ -77,14 +82,14 @@ class _Food_Bank_ManagementState extends State<Food_Bank_Management> {
                   "FOOD BANK ADDRESS", 30, Colors.white),
             ),
             SizedBox(height: 5),
-            Text_Theme.text_field("FOOD BANK ADDRESS", 20),
+            Text_Theme.text_field("${foodbankdata['address']}", 20),
             SizedBox(height: 30),
             Padding(
               padding: EdgeInsets.all(16),
               child: Text_Theme.text_colored("CONTACT INFO", 30, Colors.white),
             ),
             SizedBox(height: 5),
-            Text_Theme.text_field("CONTATC INFO", 20),
+            Text_Theme.text_field("${foodbankdata['contactinfo']}", 20),
             SizedBox(
               height: 2,
             ),
