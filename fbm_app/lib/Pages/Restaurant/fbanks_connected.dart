@@ -4,9 +4,14 @@ import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 
-class FB_Connected extends StatelessWidget {
+class FB_Connected extends StatefulWidget {
   const FB_Connected({super.key});
 
+  @override
+  State<FB_Connected> createState() => _FB_ConnectedState();
+}
+
+class _FB_ConnectedState extends State<FB_Connected> {
   Future<List<Map<String, dynamic>>> getFoodbankdetails(String username) async {
     QuerySnapshot donationsnap = await FirebaseFirestore.instance
         .collection("donations")
@@ -94,7 +99,7 @@ class FB_Connected extends StatelessWidget {
                           const SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: foodBank['contact'] ?? 'Contact Info'),
+                                text: foodBank['contactinfo'].toString() ?? 'Contact Info'),
                             readOnly: true,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
@@ -105,7 +110,7 @@ class FB_Connected extends StatelessWidget {
                           const SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: foodBank['address'] ?? 'Food Bank Address'),
+                                text: foodBank['address'].toString() ?? 'Foodbank Address'),
                             readOnly: true,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),

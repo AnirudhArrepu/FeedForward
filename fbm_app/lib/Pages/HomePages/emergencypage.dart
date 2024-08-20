@@ -2,9 +2,14 @@ import 'package:fbm_app/Button/elevatedbutton.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:flutter/material.dart';
 
-class Emergency extends StatelessWidget {
+class Emergency extends StatefulWidget {
   const Emergency({super.key});
 
+  @override
+  State<Emergency> createState() => _EmergencyState();
+}
+
+class _EmergencyState extends State<Emergency> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
