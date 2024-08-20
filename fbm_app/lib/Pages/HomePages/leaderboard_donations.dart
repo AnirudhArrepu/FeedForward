@@ -41,7 +41,7 @@ class _LeaderboardDonationsState extends State<LeaderboardDonations> {
             Navigator.pushNamed(context, '/emergency'),
           },
           child: LeaderboardClass.userPointsVolunteers.length == 0
-                  ? CircularProgressIndicator()
+                  ? Center(child: CircularProgressIndicator())
                   : ListView(padding: const EdgeInsets.all(16.0), children: [
             const SizedBox(
               height: 70,
