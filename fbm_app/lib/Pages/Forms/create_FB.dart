@@ -65,7 +65,7 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
         'username': DataClass.username,
         'contactinfo': contactinfo,
         'address': address,
-        'Location': await getGeoCode(cityname),
+        'location': await getGeoCode(cityname),
       });
       print("Data saved successfully");
     } catch (e) {
