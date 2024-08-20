@@ -2,9 +2,27 @@ import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
 
-class LeaderboardDonations extends StatelessWidget {
+class LeaderboardDonations extends StatefulWidget {
   const LeaderboardDonations({super.key});
 
+  @override
+  State<LeaderboardDonations> createState() => _LeaderboardDonationsState();
+}
+
+class _LeaderboardDonationsState extends State<LeaderboardDonations> {
+  @override
+  void initState() {
+    super.initState();
+    loadingLeaderboard();
+  }
+
+  void loadingLeaderboard() async {
+    await LeaderboardClass.allocatePointsDonations();
+    await LeaderboardClass.allocatePointsVolunteers();
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
