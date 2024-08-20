@@ -31,31 +31,30 @@ class _StapleFoodState extends State<StapleFood> {
           .get();
       List<Map<String, dynamic>> allStapleFoodItems = [];
 
-      // Loop through each document in the donations collection
+      
 
       for (var donationDoc in donationsSnapshot.docs) {
-        // Query the staplefood subcollection under each donation document
         QuerySnapshot stapleFoodSnapshot = await donationDoc.reference
-            .collection('Staple Food') // Access the staplefood subcollection
-            .orderBy('expiryDate') // Order by expiryDate in ascending order
-            .get(); // Execute the query and get the documents
+            .collection('Staple Food') 
+            .orderBy('expiryDate') 
+            .get(); 
 
-        // Add each item from the staplefood subcollection to the temporary list
+       
         for (var stapleFoodDoc in stapleFoodSnapshot.docs) {
           allStapleFoodItems.add(stapleFoodDoc.data() as Map<String, dynamic>);
         }
       }
       setState(() {
         stapleFoodItems =
-            allStapleFoodItems; // Assign the fetched items to the state
+            allStapleFoodItems; 
         isLoading =
-            false; // Set loading to false since the data has been fetched
+            false; 
       });
     } catch (e) {
       print("Error fetching data: $e");
       setState(() {
-        isLoading = false; // Stop showing the loading spinner
-        hasError = true; // Set error flag to true
+        isLoading = false; 
+        hasError = true;
       });
     }
   }
@@ -77,17 +76,17 @@ class _StapleFoodState extends State<StapleFood> {
       body: isLoading
           ? const Center(
               child:
-                  CircularProgressIndicator(), // Show loading spinner while data is being fetched
+                  CircularProgressIndicator(), 
             )
           : hasError
               ? const Center(
                   child: Text(
-                      "Error fetching data"), // Show error message if there is an error
+                      "Error fetching data"), 
                 )
               : stapleFoodItems.isEmpty
                   ? const Center(
                       child: Text(
-                          "No staple food items found"), // Show message if no data is found
+                          "No staple food items found"), 
                     )
                   : ListView.builder(
                       itemCount: stapleFoodItems.length,
@@ -99,10 +98,10 @@ class _StapleFoodState extends State<StapleFood> {
                             item['expiryDate'] ?? Timestamp.now();
                         final expiryDate = expiryTimestamp.toDate();
                         return Card(
-                          // Create a card for each item
+                          
                           margin: const EdgeInsets.symmetric(
-                            vertical: 10.0, // Vertical margin between cards
-                            horizontal: 16.0, // Horizontal margin between cards
+                            vertical: 10.0, 
+                            horizontal: 16.0, 
                           ),
                           child: ListTile(
                             leading: Text(
@@ -115,18 +114,18 @@ class _StapleFoodState extends State<StapleFood> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Item: $itemName', // Display the item name
+                                  'Item: $itemName', 
                                   style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight
-                                          .bold), // Bold font for item name
+                                          .bold), 
                                 ),
                                 const SizedBox(
-                                    height: 5), // Add some vertical spacing
+                                    height: 5), 
                                 Text(
-                                    'Quantity: $quantity'), // Display the quantity
+                                    'Quantity: $quantity'), 
                                 const SizedBox(
-                                    height: 5), // Add some vertical spacing
+                                    height: 5), 
                                 Text(
                                     'Expiry Date: ${expiryDate.toLocal().toString().split(' ')[0]}'),
                               ],
