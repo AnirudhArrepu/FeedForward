@@ -96,156 +96,161 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container( 
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage ('assets/login4.png'),
-            fit: BoxFit.cover,
-            ),
-        ),
-        child:SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children:[ 
-              SizedBox(height: 60),
-              const  Text(
-                "Log in ",
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                  
-                  
-                ),
-                ),
-                //Text feilds + button 
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Container( 
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage ('assets/login4.png'),
+              fit: BoxFit.cover,
+              ),
+          ),
+          child:SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children:[ 
                 SizedBox(height: 60),
-                Padding(
-                  padding: const EdgeInsets.all(22),
-                  child: Column(
-                    children: [
-
-
-                    
-
-                    TextField(
-                      controller: emailTextEditingController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText:"Email id  ",
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),  
-
-                    const SizedBox(height: 60),
-
-                     TextField(
-                      controller: passwordTextEditingController,
-                      obscureText: true,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText:" Password ",
-                        labelStyle: TextStyle( color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                    ),
+                const  Text(
+                  "Log in ",
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
                     
                     
-  
-                    const SizedBox(height: 60),
-
-                   /* Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  ),
+                  //Text feilds + button 
+                  SizedBox(height: 60),
+                  Padding(
+                    padding: const EdgeInsets.all(22),
+                    child: Column(
                       children: [
-                        Radio<int>(value: 0, groupValue: role, onChanged: (int? value){
-                          setState(() {
-                            role =value!;
-                          });
-                        },
-                         activeColor: Colors.purple,
+        
+        
+                      
+        
+                      TextField(
+                        controller: emailTextEditingController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText:"Email id  ",
+                          labelStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18), 
                         ),
-                        const Text(
-                          "user",
-                          style: TextStyle(color: Colors.white,fontSize: 18),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
                         ),
-                        SizedBox( height: 30,),
-                        Radio(value: 1, groupValue: role, onChanged: (int? value){
-                          setState(() {
-                            role = value!;
-                          });
-                        },
-                         activeColor: Colors.purple,
+                      ),  
+        
+                      const SizedBox(height: 60),
+        
+                       TextField(
+                        controller: passwordTextEditingController,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText:" Password ",
+                          labelStyle: TextStyle( color: Colors.white,fontSize: 18), 
                         ),
-                        const Text(
-                          "Restaurant",
-                          style: TextStyle(color: Colors.white,fontSize: 18),
+                        style: const TextStyle(
+                          color: Colors.grey,
+                          fontSize: 15,
                         ),
-                      ],
-                    ),*/
-                    SizedBox(height: 30,),
-
-                    ElevatedButton(
-                      onPressed: () 
-                      {
-                        signInFormValidation();
-
-                     },
-                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  Colors.purple,
-                      padding: EdgeInsets.symmetric(horizontal: 85,vertical: 15)
-                     ),
-                    
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                       color: Colors.white,fontSize: 14 
                       ),
                       
-
+                      
+          
+                      const SizedBox(height: 60),
+        
+                     /* Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Radio<int>(value: 0, groupValue: role, onChanged: (int? value){
+                            setState(() {
+                              role =value!;
+                            });
+                          },
+                           activeColor: Colors.purple,
+                          ),
+                          const Text(
+                            "user",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                          SizedBox( height: 30,),
+                          Radio(value: 1, groupValue: role, onChanged: (int? value){
+                            setState(() {
+                              role = value!;
+                            });
+                          },
+                           activeColor: Colors.purple,
+                          ),
+                          const Text(
+                            "Restaurant",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                        ],
+                      ),*/
+                      SizedBox(height: 30,),
+        
+                      ElevatedButton(
+                        onPressed: () 
+                        {
+                          signInFormValidation();
+        
+                       },
+                       style: ElevatedButton.styleFrom(
+                        backgroundColor:  Colors.purple,
+                        padding: EdgeInsets.symmetric(horizontal: 85,vertical: 15)
+                       ),
+                      
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                         color: Colors.white,fontSize: 14 
+                        ),
+                        
+        
+                      )
+                      ,
+                      ),
+        
+                      ],
                     )
-                    ,
+                    
                     ),
-
-                    ],
-                  )
-                  
-                  ),
-              
-
-                //textbutton
-                SizedBox(height: 80),
-
-                TextButton(
-                  onPressed: ()
-                  {
-                  
-                    Navigator.push(context, MaterialPageRoute(builder: (c)=>SignupScreen()));
-
-                  },
-                   child: const Text(
-                    "Don\'t have an Account? Register Here",
-                    style: TextStyle(
-                      color: Colors.cyan,
-                      fontSize: 18,
-                    ),
-                   )),
-                  SizedBox(height: 260),
-            ]
-          )
+                
+        
+                  //textbutton
+                  SizedBox(height: 80),
+        
+                  TextButton(
+                    onPressed: ()
+                    {
+                    
+                      Navigator.push(context, MaterialPageRoute(builder: (c)=>SignupScreen()));
+        
+                    },
+                     child: const Text(
+                      "Don\'t have an Account? Register Here",
+                      style: TextStyle(
+                        color: Colors.cyan,
+                        fontSize: 18,
+                      ),
+                     )),
+                    SizedBox(height: 260),
+              ]
+            )
+        ),
+        ),
+             ),
       ),
-      ),
-     ),
     );
   }
 }

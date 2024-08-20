@@ -53,82 +53,87 @@ class _Food_Bank_ManagementState extends State<Food_Bank_Management> {
         ),
         centerTitle: false,
       ),
-      body: load? Center(child: CircularProgressIndicator()) 
-          : SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child:
-                  Text_Theme.text_colored("FOOD BANK NAME", 30, Colors.white),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text_Theme.text_field( '${foodbankdata['name']}', 20),
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Text_Theme.text_colored(
-                  "FOOD BANK ADDRESS", 30, Colors.white),
-            ),
-            SizedBox(height: 5),
-            Text_Theme.text_field("${foodbankdata['address']}", 20),
-            SizedBox(height: 30),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Text_Theme.text_colored("CONTACT INFO", 30, Colors.white),
-            ),
-            SizedBox(height: 5),
-            Text_Theme.text_field("${foodbankdata['contactinfo']}", 20),
-            SizedBox(
-              height: 2,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Container(
-              height: 50,
-              child: GestureDetector(onDoubleTap: () {
-                Navigator.pushNamed(context, '/emergency');
-              }),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(
-                  height: 100,
-                ),
-                butt(
-                  text: "INVENTORY",
-                  routeName: "/inventory",
-                  icon: Icon(Icons.food_bank),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                butt(
-                  text: "VOLUNTEERS",
-                  routeName: "/v_info",
-                  icon: Icon(Icons.favorite),
-                ),
-              ],
-            ),
-            butt(
-              text: "RESTAURANTS",
-              routeName: "/restaurants",
-              icon: Icon(Icons.account_circle_outlined),
-            ),
-          ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: load? Center(child: CircularProgressIndicator()) 
+            : SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child:
+                    Text_Theme.text_colored("FOOD BANK NAME", 30, Colors.white),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text_Theme.text_field( '${foodbankdata['name']}', 20),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text_Theme.text_colored(
+                    "FOOD BANK ADDRESS", 30, Colors.white),
+              ),
+              SizedBox(height: 5),
+              Text_Theme.text_field("${foodbankdata['address']}", 20),
+              SizedBox(height: 30),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text_Theme.text_colored("CONTACT INFO", 30, Colors.white),
+              ),
+              SizedBox(height: 5),
+              Text_Theme.text_field("${foodbankdata['contactinfo']}", 20),
+              SizedBox(
+                height: 2,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 50,
+                child: GestureDetector(onDoubleTap: () {
+                  Navigator.pushNamed(context, '/emergency');
+                }),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    height: 100,
+                  ),
+                  butt(
+                    text: "INVENTORY",
+                    routeName: "/inventory",
+                    icon: Icon(Icons.food_bank),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  butt(
+                    text: "VOLUNTEERS",
+                    routeName: "/v_info",
+                    icon: Icon(Icons.favorite),
+                  ),
+                ],
+              ),
+              butt(
+                text: "RESTAURANTS",
+                routeName: "/restaurants",
+                icon: Icon(Icons.account_circle_outlined),
+              ),
+            ],
+          ),
         ),
       ),
     );

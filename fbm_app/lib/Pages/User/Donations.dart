@@ -48,43 +48,48 @@ class _DonationsState extends State<Donations> {
       appBar: AppBar(
         title: Text_Theme.text_size("MY DONATIONS", 20),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-                height: 550,
-                child: Donations.length == 0
-                    ? Center(child: CircularProgressIndicator())
-                    : ListView.builder(
-                        itemCount: Donations.length,
-                        itemBuilder: (context, index) {
-                          Map<String, int> donation = Donations[index];
-                          return Card(
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 10.0, horizontal: 16.0),
-                              child: ListTile(
-                                title: Text_Theme.text_size(
-                                    'Foodbank: ${donation.keys.first}', 20),
-                                subtitle: Text_Theme.text_size(
-                                    'Points: ${donation.values.first}', 15),
-                              ));
-                        })),
-            Container(
-              height: 50,
-              child: GestureDetector(onDoubleTap: () {
-                Navigator.pushNamed(context, '/emergency');
-              }),
-            ),
-            SizedBox(
-              height: 100,
-            ),
-            AlignedButton(
-              text: "",
-              routeName: "/outlets",
-              icon: Icon(Icons.add),
-              align: Alignment.bottomRight,
-            ),
-          ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                  height: 550,
+                  child: Donations.length == 0
+                      ? Center(child: CircularProgressIndicator())
+                      : ListView.builder(
+                          itemCount: Donations.length,
+                          itemBuilder: (context, index) {
+                            Map<String, int> donation = Donations[index];
+                            return Card(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 16.0),
+                                child: ListTile(
+                                  title: Text_Theme.text_size(
+                                      'Foodbank: ${donation.keys.first}', 20),
+                                  subtitle: Text_Theme.text_size(
+                                      'Points: ${donation.values.first}', 15),
+                                ));
+                          })),
+              Container(
+                height: 50,
+                child: GestureDetector(onDoubleTap: () {
+                  Navigator.pushNamed(context, '/emergency');
+                }),
+              ),
+              SizedBox(
+                height: 100,
+              ),
+              AlignedButton(
+                text: "",
+                routeName: "/outlets",
+                icon: Icon(Icons.add),
+                align: Alignment.bottomRight,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -34,43 +34,48 @@ class _RestaurantProfileState extends State<RestaurantProfile> {
           title: Text_Theme.text_size("PROFILE", 20),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(16),
-                child: Text_Theme.text_colored("DETAILS", 25, Colors.white),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Text_Theme.text_field("NAME: ${Profile['name']}", 15),
-              SizedBox(
-                height: 15,
-              ),
-              Text_Theme.text_field("ADDRESS: ${Profile['address']}", 15),
-              SizedBox(
-                height: 15,
-              ),
-              Text_Theme.text_field("CONTACT: ${Profile['contactnum']}", 15),
-              SizedBox(
-                height: 150,
-              ),
-              butt(
-                text: "Food Banks",
-                routeName: "/listfb",
-                icon: Icon(Icons.food_bank),
-              ),
-              SizedBox(
-                height: 75,
-              ),
-              Container(
-                height: 50,
-                child: GestureDetector(onDoubleTap: () {
-                  Navigator.pushNamed(context, '/emergency');
-                }),
-              ),
-            ],
+        body: GestureDetector(
+          onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Text_Theme.text_colored("DETAILS", 25, Colors.white),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Text_Theme.text_field("NAME: ${Profile['name']}", 15),
+                SizedBox(
+                  height: 15,
+                ),
+                Text_Theme.text_field("ADDRESS: ${Profile['address']}", 15),
+                SizedBox(
+                  height: 15,
+                ),
+                Text_Theme.text_field("CONTACT: ${Profile['contactnum']}", 15),
+                SizedBox(
+                  height: 150,
+                ),
+                butt(
+                  text: "Food Banks",
+                  routeName: "/listfb",
+                  icon: Icon(Icons.food_bank),
+                ),
+                SizedBox(
+                  height: 75,
+                ),
+                Container(
+                  height: 50,
+                  child: GestureDetector(onDoubleTap: () {
+                    Navigator.pushNamed(context, '/emergency');
+                  }),
+                ),
+              ],
+            ),
           ),
         ));
   }

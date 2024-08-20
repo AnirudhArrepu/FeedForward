@@ -54,32 +54,37 @@ class _VolunteersState extends State<Volunteers> {
           ),
         ),
       ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            itemCount: volunteers.length,
-            itemBuilder: (BuildContext context, int index) {
-              final serial = 'V${index + 1}';
-              final volun = volunteers[index];
-              final foodbank_name = volun.keys.first;
-              final hours = volun.values.first;
-
-              return Card(
-                margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-                child: ListTile(
-                  title: Column(
-                    children: [
-                      Text_Theme.text_size(serial.toString(), 22),
-                      Text_Theme.text_size(
-                          "Food Bank Name: $foodbank_name", 22),
-                    ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Stack(
+          children: [
+            ListView.builder(
+              itemCount: volunteers.length,
+              itemBuilder: (BuildContext context, int index) {
+                final serial = 'V${index + 1}';
+                final volun = volunteers[index];
+                final foodbank_name = volun.keys.first;
+                final hours = volun.values.first;
+        
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                  child: ListTile(
+                    title: Column(
+                      children: [
+                        Text_Theme.text_size(serial.toString(), 22),
+                        Text_Theme.text_size(
+                            "Food Bank Name: $foodbank_name", 22),
+                      ],
+                    ),
+                    subtitle: Text_Theme.text_size("No of Hours: $hours", 22),
                   ),
-                  subtitle: Text_Theme.text_size("No of Hours: $hours", 22),
-                ),
-              );
-            },
-          ),
-        ],
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
