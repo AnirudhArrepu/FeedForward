@@ -11,16 +11,18 @@ class LeaderboardClass {
   static Map<String, int> userPointsSortedVolunteers = {};
   static Map<String, int> userPointsVolunteers = {};
 
+  static List<String> _usernames = [];
+
   static Future<void> allocatePointsVolunteers() async {
-    userPointsDonations = {};
-    userPointsSortedDonations = {};
+    userPointsSortedVolunteers = {};
+    userPointsVolunteers = {};
     await allocatePointsVolunteersDuplicate();
     rankUsersVolunteers();
   }
 
   static Future<void> allocatePointsDonations() async {
-    userPointsSortedVolunteers = {};
-    userPointsVolunteers = {};
+    userPointsDonations = {};
+    userPointsSortedDonations = {};
     await allocatePointsDonationsDuplicate();
     rankUsersDonations();
   }
@@ -61,10 +63,12 @@ class LeaderboardClass {
 
     for (var doc in querySnapshot.docs) {
       String username = doc['username'];
-      if (userPointsDonations.containsKey(username)) {
+
+      if (_usernames.contains(username)) {
         userPointsDonations[username] = await calculatePointsDonations(doc) +
             userPointsDonations[username]!;
       } else {
+        _usernames.add(username);
         userPointsDonations[username] = await calculatePointsDonations(doc);
       }
     }
@@ -95,13 +99,13 @@ class LeaderboardClass {
     int points = 0;
 
     for (var doc in packagedQuery.docs) {
-      points = points + int.parse((doc['quantity'] * 7).toString());
+      points += int.parse((doc['quantity'] * 7).toString());
     }
     for (var doc in stapleQuery.docs) {
-      points = points + int.parse((doc['quantity'] * 5).toString());
+      points += int.parse((doc['quantity'] * 5).toString());
     }
     for (var doc in cookedQuery.docs) {
-      points = points + int.parse((doc['quantity'] * 10).toString());
+      points += int.parse((doc['quantity'] * 10).toString());
     }
 
     return points;

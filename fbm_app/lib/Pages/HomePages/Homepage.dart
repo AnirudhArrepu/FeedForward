@@ -32,6 +32,8 @@ class _HomepageState extends State<Homepage> {
     r = widget.userDetails['role'];
     Profile = widget.userDetails;
     DataClass.addUsername(widget.userDetails['name']);
+
+    LeaderboardClass.allocatePointsDonations();
   }
 
   @override

@@ -12,6 +12,12 @@ class leaderboard extends StatefulWidget {
 
 class _leaderboardState extends State<leaderboard> {
   @override
+  void initState() {
+    super.initState();
+    LeaderboardClass.allocatePointsVolunteers();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.bgcolor(),
@@ -49,12 +55,12 @@ class _leaderboardState extends State<leaderboard> {
             height: 500,
             child: ListView.builder(
               itemCount:
-                  LeaderboardClass.userPointsSortedVolunteers.length >= 10
-                      ? LeaderboardClass.userPointsVolunteers.length
+                  LeaderboardClass.userPointsSortedVolunteers.length < 10
+                      ? LeaderboardClass.userPointsSortedVolunteers.length
                       : 10,
               itemBuilder: (BuildContext context, int index) {
-                var user = LeaderboardClass.userPointsVolunteers.entries
-                    .toList()[0]
+                var user = LeaderboardClass.userPointsSortedVolunteers.entries
+                    .toList()[index]
                     .key;
                 return ListTile(
                   leading: Text(
@@ -89,12 +95,12 @@ class _leaderboardState extends State<leaderboard> {
             color: const Color.fromARGB(255, 35, 137, 38),
             height: 500,
             child: ListView.builder(
-              itemCount: LeaderboardClass.userPointsSortedDonations.length >= 10
+              itemCount: LeaderboardClass.userPointsDonations.length < 10
                   ? LeaderboardClass.userPointsDonations.length
                   : 10,
               itemBuilder: (BuildContext context, int index) {
-                var user = LeaderboardClass.userPointsDonations.entries
-                    .toList()[0]
+                String user = LeaderboardClass.userPointsSortedDonations.entries
+                    .toList()[index]
                     .key;
                 return ListTile(
                   leading: Text(

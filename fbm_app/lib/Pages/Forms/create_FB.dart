@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:fbm_app/classes/data_class.dart';
+import 'package:http/http.dart' as http;
 
 class CreateFoodBank extends StatefulWidget {
   @override
@@ -28,6 +32,31 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
     _addressController.clear();
   }
 
+  static const String _apiKey = '271e15cf1a004fe0933d56e6a85b345b';
+  static const String _baseUrl = 'https://api.opencagedata.com/geocode/v1/json';
+
+  Future<LatLng> getGeoCode(String cityName) async {
+    final Uri url = Uri.parse('$_baseUrl?q=$cityName&key=$_apiKey');
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+
+        if (data['results'].isNotEmpty) {
+          final lat = data['results'][0]['geometry']['lat'];
+          final lng = data['results'][0]['geometry']['lng'];
+          return LatLng(lat, lng);
+        }
+      } else {
+        print('Failed to load data. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+    return LatLng(0, 0);
+  }
+
   Future<void> _saveUserData(
       String name, String cityname, String address, int contactinfo) async {
     try {
@@ -35,6 +64,8 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
         'name': name,
         'username': DataClass.username,
         'contactinfo': contactinfo,
+        'address': address,
+        'Location': await getGeoCode(cityname),
       });
       print("Data saved successfully");
     } catch (e) {
@@ -153,7 +184,8 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
 
                       // Show a Snackbar to confirm data submission
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Data saved successfully')),
+                        const SnackBar(
+                            content: Text('Data saved successfully')),
                       );
 
                       // Clear the input fields after submission
