@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
@@ -13,6 +14,7 @@ class Volunteers extends StatefulWidget {
 
 class _VolunteersState extends State<Volunteers> {
   final List<Map<String, String>> volunteers = [];
+  String username =  DataClass.username;
 
   @override
   void initState() {
@@ -23,7 +25,7 @@ class _VolunteersState extends State<Volunteers> {
   void getVolunteerInfo() async {
     CollectionReference volunteer =
         FirebaseFirestore.instance.collection('volunteers');
-    QuerySnapshot querySnapshot = await volunteer.get();
+    QuerySnapshot querySnapshot = await volunteer.where("username", isEqualTo: username).get();
 
     for (var doc in querySnapshot.docs) {
       String? name = doc['foodbank'];

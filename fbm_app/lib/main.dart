@@ -4,6 +4,8 @@ import 'package:fbm_app/Inventory/Packaged_food.dart';
 import 'package:fbm_app/Inventory/staple_food.dart';
 import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/HomePages/SplashScreen.dart';
+import 'package:fbm_app/Pages/HomePages/leaderboard_donations.dart';
+import 'package:fbm_app/Pages/HomePages/leaderboard_volunteer.dart';
 import 'package:fbm_app/Pages/User/Donations.dart';
 // import 'package:fbm_app/Pages/EmergencyPage.dart';
 import 'package:fbm_app/Pages/User/FB_profile.dart';
@@ -80,6 +82,8 @@ class MyApp extends StatelessWidget {
         '/packaged_food': (context) => const PackagedFood(),
         '/staple_food': (context) => const StapleFood(),
         '/create_fb': (context) => CreateFoodBank(),
+        '/l_donation': (context) => LeaderboardDonations(),
+        '/l_volunteers': (context) => LeaderboardVolunteer(),
       },
     );
   }

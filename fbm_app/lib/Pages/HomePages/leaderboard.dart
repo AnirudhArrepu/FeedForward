@@ -1,23 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fbm_app/Button/button.dart';
 import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-class leaderboard extends StatefulWidget {
+class leaderboard extends StatelessWidget {
   const leaderboard({super.key});
 
-  @override
-  State<leaderboard> createState() => _leaderboardState();
-}
-
-class _leaderboardState extends State<leaderboard> {
-  @override
-  void initState() {
-    super.initState();
-    LeaderboardClass.allocatePointsVolunteers();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.bgcolor(),
@@ -30,97 +20,29 @@ class _leaderboardState extends State<leaderboard> {
           ),
         ),
       ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
-          const SizedBox(
-            height: 70,
-          ),
-          Container(
-            color: Colors.brown,
-            height: 30,
-            width: 120,
-            child: const Center(
-              child: Text(
-                "Volunteer",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            butt(
+              text: "Donors",
+              routeName: '/l_donation',
+              icon: Icon(Icons.people),
             ),
-          ),
-          Container(
-            color: Colors.brown,
-            height: 500,
-            child: ListView.builder(
-              itemCount:
-                  LeaderboardClass.userPointsSortedVolunteers.length < 10
-                      ? LeaderboardClass.userPointsSortedVolunteers.length
-                      : 10,
-              itemBuilder: (BuildContext context, int index) {
-                var user = LeaderboardClass.userPointsSortedVolunteers.entries
-                    .toList()[index]
-                    .key;
-                return ListTile(
-                  leading: Text(
-                    '${index + 1}',
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  title: Text(user),
-                );
-              },
+            SizedBox(
+              height: 50,
             ),
-          ),
-          const SizedBox(
-            height: 50,
-          ),
-          Container(
-            color: const Color.fromARGB(255, 35, 137, 38),
-            height: 30,
-            width: 120,
-            child: const Center(
-              child: Text(
-                "Donations",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            color: const Color.fromARGB(255, 35, 137, 38),
-            height: 500,
-            child: ListView.builder(
-              itemCount: LeaderboardClass.userPointsDonations.length < 10
-                  ? LeaderboardClass.userPointsDonations.length
-                  : 10,
-              itemBuilder: (BuildContext context, int index) {
-                String user = LeaderboardClass.userPointsSortedDonations.entries
-                    .toList()[index]
-                    .key;
-                return ListTile(
-                  leading: Text(
-                    '${index + 1}',
-                    style: const TextStyle(
-                      fontSize: 15,
-                    ),
-                  ),
-                  title: Text(user),
-                );
-              },
-            ),
-          ),
-          Container(
-            height: 50,
-            child: GestureDetector(onDoubleTap: () {
-              Navigator.pushNamed(context, '/emergency');
-            }),
-          ),
-        ],
+            butt(
+              text: "Volunteers",
+              routeName: '/l_volunteers',
+              icon: Icon(Icons.volunteer_activism),
+            )
+          ],
+        ),
       ),
     );
   }
