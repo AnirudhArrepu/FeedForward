@@ -19,8 +19,8 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
   void loadingLeaderboard() async {
     // await LeaderboardClass.allocatePointsDonations();
     await LeaderboardClass.allocatePointsVolunteers();
-    setState(() {});
     LeaderboardClass.allocatePointsDonations();
+    setState(() {});
   }
 
   @override
@@ -62,7 +62,7 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
               color: Colors.brown,
               height: 500,
               child: LeaderboardClass.userPointsDonations.length == 0
-                  ? Center(child: CircularProgressIndicator())
+                  ? CircularProgressIndicator()
                   : ListView.builder(
                       itemCount: LeaderboardClass
                                   .userPointsSortedVolunteers.length <
