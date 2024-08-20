@@ -40,9 +40,7 @@ class _LeaderboardDonationsState extends State<LeaderboardDonations> {
           onDoubleTap: () => {
             Navigator.pushNamed(context, '/emergency'),
           },
-          child: LeaderboardClass.userPointsVolunteers.length == 0
-                  ? Center(child: CircularProgressIndicator())
-                  : ListView(padding: const EdgeInsets.all(16.0), children: [
+          child: ListView(padding: const EdgeInsets.all(16.0), children: [
             const SizedBox(
               height: 70,
             ),
