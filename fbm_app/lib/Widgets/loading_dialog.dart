@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class LoadingDialog extends StatelessWidget 
+class LoadingDialog extends StatefulWidget 
 {
   String massagetext;
 
@@ -10,6 +10,11 @@ class LoadingDialog extends StatelessWidget
   LoadingDialog({
     super.key,required this.massagetext,});
 
+  @override
+  State<LoadingDialog> createState() => _LoadingDialogState();
+}
+
+class _LoadingDialogState extends State<LoadingDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -44,7 +49,7 @@ class LoadingDialog extends StatelessWidget
 
                 Flexible(
                   child: Text(
-                    massagetext,
+                    widget.massagetext,
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.white,

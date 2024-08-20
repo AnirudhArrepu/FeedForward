@@ -7,14 +7,18 @@ import 'package:fbm_app/classes/data_class.dart';
 
 class CreateFoodBank extends StatefulWidget {
   @override
-  _CreateFoodBank createState() => _CreateFoodBank();
+  State<CreateFoodBank> createState() => _CreateFoodBankState();
 }
 
-class _CreateFoodBank extends State<CreateFoodBank> {
+class _CreateFoodBankState extends State<CreateFoodBank> {
   final TextEditingController _foodBankNameController = TextEditingController();
+
   final TextEditingController _contactInfoController = TextEditingController();
+
   final TextEditingController _cityNameController = TextEditingController();
+
   final TextEditingController _addressController = TextEditingController();
+
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   void clearButton() {
@@ -24,7 +28,6 @@ class _CreateFoodBank extends State<CreateFoodBank> {
     _addressController.clear();
   }
 
-  void submit() {}
   Future<void> _saveUserData(
       String name, String cityname, String address, int contactinfo) async {
     try {
@@ -59,13 +62,13 @@ class _CreateFoodBank extends State<CreateFoodBank> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextField(
                 controller: _foodBankNameController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   labelText: 'Food Bank Name',
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -75,14 +78,14 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextField(
                 controller: _contactInfoController,
                 keyboardType: TextInputType.number,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   labelText: 'Contact Info',
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -93,14 +96,14 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                 ),
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextField(
                 controller: _cityNameController,
                 keyboardType: TextInputType.text,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   labelText: 'City Name',
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -110,13 +113,13 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextField(
                 controller: _addressController,
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
                   labelText: 'Address',
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.w700,
@@ -126,10 +129,10 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
               Row(
@@ -137,7 +140,7 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                 children: [
                   ElevatedButton(
                     onPressed: clearButton,
-                    child: Text('Clear All'),
+                    child: const Text('Clear All'),
                   ),
                   ElevatedButton(
                     onPressed: () async {
@@ -152,7 +155,7 @@ class _CreateFoodBank extends State<CreateFoodBank> {
 
                       // Show a Snackbar to confirm data submission
                       ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Data saved successfully')),
+                        const SnackBar(content: Text('Data saved successfully')),
                       );
 
                       // Clear the input fields after submission
@@ -161,7 +164,7 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                       _cityNameController.clear();
                       _addressController.clear();
                     },
-                    child: Text(
+                    child: const Text(
                       "SUBMIT",
                     ),
                   ),

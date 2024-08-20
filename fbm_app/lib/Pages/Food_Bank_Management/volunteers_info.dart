@@ -5,9 +5,16 @@ import 'package:fbm_app/Styles/TextStyle.dart';
 import 'package:fbm_app/classes/data_class.dart';
 import 'package:flutter/material.dart';
 
-class volunteers_info extends StatelessWidget {
+class volunteers_info extends StatefulWidget {
   volunteers_info({super.key});
+
+  @override
+  State<volunteers_info> createState() => _volunteers_infoState();
+}
+
+class _volunteers_infoState extends State<volunteers_info> {
   String foodbank = DataClass.foodbank;
+
   // Fetch foodbank name based on the GeoPoint location
   Future<String?> _getFoodBankName() async {
     try {
