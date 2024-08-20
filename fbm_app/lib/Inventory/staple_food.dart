@@ -36,7 +36,7 @@ class _StapleFoodState extends State<StapleFood> {
       for (var donationDoc in donationsSnapshot.docs) {
         // Query the staplefood subcollection under each donation document
         QuerySnapshot stapleFoodSnapshot = await donationDoc.reference
-            .collection('staplefood') // Access the staplefood subcollection
+            .collection('Staple food') // Access the staplefood subcollection
             .orderBy('expiryDate') // Order by expiryDate in ascending order
             .get(); // Execute the query and get the documents
 

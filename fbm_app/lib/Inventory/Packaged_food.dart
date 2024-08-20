@@ -33,7 +33,7 @@ class _PackagedFoodState extends State<PackagedFood> {
 
       for (var donationDoc in donationsSnapshot.docs) {
         QuerySnapshot packagedFoodSnapshot = await donationDoc.reference
-            .collection('packaged food')
+            .collection('Packaged food')
             .orderBy('expiryDate')
             .get();
 
