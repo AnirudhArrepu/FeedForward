@@ -122,6 +122,7 @@ class _HomepageState extends State<Homepage> {
                   itemCount: NotificationClass.notifications.length,
                   itemBuilder: (context, index) {
                     final noti = NotificationClass.notifications[index];
+                    setState(() {});
                     return Card(
                       margin: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 16.0),
