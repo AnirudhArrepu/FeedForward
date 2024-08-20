@@ -35,7 +35,6 @@ class _CookedFoodState extends State<CookedFood> {
       for (var donationDoc in donationsSnapshot.docs) {
         QuerySnapshot cookedFoodSnapshot = await donationDoc.reference
             .collection('Cooked Food')
-            .orderBy('expiryDate')
             .get();
 
         for (var cookedFoodDoc in cookedFoodSnapshot.docs) {
