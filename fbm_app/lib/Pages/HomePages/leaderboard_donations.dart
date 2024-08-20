@@ -57,7 +57,7 @@ class _LeaderboardDonationsState extends State<LeaderboardDonations> {
           Container(
             color: const Color.fromARGB(255, 35, 137, 38),
             height: 500,
-            child: ListView.builder(
+            child: LeaderboardClass.userPointsVolunteers.length==0? CircularProgressIndicator(): ListView.builder(
               itemCount: LeaderboardClass.userPointsDonations.length < 10
                   ? LeaderboardClass.userPointsDonations.length
                   : 10,
