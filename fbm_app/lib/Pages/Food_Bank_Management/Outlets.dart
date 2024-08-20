@@ -19,8 +19,8 @@ class _OutletsState extends State<Outlets> {
   @override
   void initState() {
     super.initState();
-    outlets = DataClass.foodbankWithoutLocation;
     loadFoodBankDetails();
+    // outlets = DataClass.foodbankWithoutLocation;
   }
 
   Future<void> loadFoodBankDetails() async {
