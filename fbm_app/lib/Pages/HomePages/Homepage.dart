@@ -36,7 +36,6 @@ class _HomepageState extends State<Homepage> {
     setState(() {});
 
     LeaderboardClass.allocatePointsDonations();
-    LeaderboardClass.allocatePointsVolunteers();
   }
 
   void _scrollToBottom() {

@@ -20,24 +20,26 @@ class _DonationsState extends State<Donations> {
   @override
   void initState() {
     super.initState();
-    LeaderboardClass.allocatePointsDonations();
     loadUserDonations();
   }
 
   void loadUserDonations() async {
+    // await LeaderboardClass.allocatePointsDonations();
     CollectionReference donations =
         FirebaseFirestore.instance.collection('donations');
     QuerySnapshot querySnapshot = await donations.get();
 
     for (var doc in querySnapshot.docs) {
+      print(doc);
       if (doc["username"] == DataClass.username) {
         String foodbank_name = doc['foodbank'];
-        int points = LeaderboardClass.userPointsDonations[doc['username']]!;
-        print(foodbank_name);
-        print(points);
+        int points = await LeaderboardClass.calculatePointsDonations(doc);
+        LeaderboardClass.userPointsDonations[doc['username']]!;
         Donations.add({foodbank_name: points});
       }
     }
+    print('done');
+    setState(() {});
   }
 
   Widget build(BuildContext context) {
@@ -51,20 +53,22 @@ class _DonationsState extends State<Donations> {
           children: [
             Container(
                 height: 550,
-                child: ListView.builder(
-                    itemCount: Donations.length,
-                    itemBuilder: (context, index) {
-                      Map<String, int> donation = Donations[index];
-                      return Card(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 16.0),
-                          child: ListTile(
-                            title: Text_Theme.text_size(
-                                'Foodbank: ${donation.keys.first}', 20),
-                            subtitle: Text_Theme.text_size(
-                                'Points: ${donation.values.first}', 15),
-                          ));
-                    })),
+                child: Donations.length == 0
+                    ? Center(child: CircularProgressIndicator())
+                    : ListView.builder(
+                        itemCount: Donations.length,
+                        itemBuilder: (context, index) {
+                          Map<String, int> donation = Donations[index];
+                          return Card(
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 10.0, horizontal: 16.0),
+                              child: ListTile(
+                                title: Text_Theme.text_size(
+                                    'Foodbank: ${donation.keys.first}', 20),
+                                subtitle: Text_Theme.text_size(
+                                    'Points: ${donation.values.first}', 15),
+                              ));
+                        })),
             Container(
               height: 50,
               child: GestureDetector(onDoubleTap: () {

@@ -64,7 +64,7 @@ class LeaderboardClass {
     for (var doc in querySnapshot.docs) {
       String username = doc['username'];
 
-      if (_usernames.contains(username)) {
+      if (userPointsDonations.containsKey(username)) {
         userPointsDonations[username] = await calculatePointsDonations(doc) +
             userPointsDonations[username]!;
       } else {
