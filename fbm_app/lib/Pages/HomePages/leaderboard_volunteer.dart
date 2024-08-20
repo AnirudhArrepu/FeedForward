@@ -12,7 +12,7 @@ class LeaderboardVolunteer extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
-          "Leaderboard",
+          "Volunteer Leaderboard",
           style: TextStyle(
             color: Colors.black,
           ),
