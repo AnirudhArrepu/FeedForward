@@ -22,7 +22,7 @@ class _CookedFoodState extends State<CookedFood> {
   }
 
   Future<void> _fetchCookedFoodData() async {
-    
+    try {
       String foobankName = DataClass.foodbank;
       String userName = DataClass.username;
       QuerySnapshot donationsSnapshot = await FirebaseFirestore.instance
@@ -35,6 +35,7 @@ class _CookedFoodState extends State<CookedFood> {
       for (var donationDoc in donationsSnapshot.docs) {
         QuerySnapshot cookedFoodSnapshot = await donationDoc.reference
             .collection('Cooked Food')
+            .orderBy('expiryDate')
             .get();
 
         for (var cookedFoodDoc in cookedFoodSnapshot.docs) {
@@ -45,13 +46,13 @@ class _CookedFoodState extends State<CookedFood> {
         cookedFoodItems = allCookedFoodItems;
         isLoading = false;
       });
-    
-      
+    } catch (e) {
+      print("Error fetching data: $e");
       setState(() {
         isLoading = false;
         hasError = true;
       });
-    
+    }
   }
 
   @override
