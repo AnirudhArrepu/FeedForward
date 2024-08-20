@@ -117,7 +117,7 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               Container(
-                height: 325,
+                height: 250,
                 child: ListView.builder(
                   itemCount: NotificationClass.notifications.length,
                   itemBuilder: (context, index) {
