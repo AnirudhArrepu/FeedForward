@@ -28,7 +28,6 @@ class _CookedFoodState extends State<CookedFood> {
       QuerySnapshot donationsSnapshot = await FirebaseFirestore.instance
           .collection('donations')
           .where('foodbank', isEqualTo: foobankName)
-          .where('username', isEqualTo: userName)
           .get();
 
       List<Map<String, dynamic>> allCookedFoodItems = [];

@@ -20,7 +20,7 @@ class _StapleFoodState extends State<StapleFood> {
     super.initState();
     _fetchStapleFoodData();
   }
-
+  
   Future<void> _fetchStapleFoodData() async {
     try {
       String foobankName = DataClass.foodbank;
@@ -28,7 +28,6 @@ class _StapleFoodState extends State<StapleFood> {
       QuerySnapshot donationsSnapshot = await FirebaseFirestore.instance
           .collection('donations')
           .where('foodbank', isEqualTo: foobankName)
-          .where('username', isEqualTo: userName)
           .get();
       List<Map<String, dynamic>> allStapleFoodItems = [];
 
