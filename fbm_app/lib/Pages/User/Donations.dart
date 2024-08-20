@@ -40,20 +40,11 @@ class _DonationsState extends State<Donations> {
     }
   }
 
-  
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: Text_Theme.text_size("MY DONATIONS", 20),
-        leading: Padding(
-            padding: const EdgeInsets.all(4),
-            child: Image.asset(
-              'assets/logo.png',
-              width: 100,
-              height: 100,
-            )),
       ),
       body: SingleChildScrollView(
         child: Column(
