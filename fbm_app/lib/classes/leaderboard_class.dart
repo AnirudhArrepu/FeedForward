@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class LeaderboardClass {
   static String winnerVolunteer = "";
-  static String winnerDonation = " ";
+  static String winnerDonation = "";
 
   //Donations
   static Map<String, int> userPointsSortedDonations = {};
@@ -11,21 +11,21 @@ class LeaderboardClass {
   static Map<String, int> userPointsSortedVolunteers = {};
   static Map<String, int> userPointsVolunteers = {};
 
-  static void allocatePointsVolunteers() {
+  static Future<void> allocatePointsVolunteers() async {
     userPointsDonations = {};
     userPointsSortedDonations = {};
-    allocatePointsVolunteersDuplicate();
+    await allocatePointsVolunteersDuplicate();
     rankUsersVolunteers();
   }
 
-  static void allocatePointsDonations() {
+  static Future<void> allocatePointsDonations() async {
     userPointsSortedVolunteers = {};
     userPointsVolunteers = {};
-    allocatePointsDonationsDuplicate();
+    await allocatePointsDonationsDuplicate();
     rankUsersDonations();
   }
 
-  static void allocatePointsVolunteersDuplicate() async {
+  static Future<void> allocatePointsVolunteersDuplicate() async {
     CollectionReference volunteers =
         FirebaseFirestore.instance.collection('volunteers');
 
@@ -49,10 +49,12 @@ class LeaderboardClass {
         userPointsVolunteers.entries.toList()
           ..sort((a, b) => b.value.compareTo(a.value)));
 
-    winnerVolunteer = userPointsSortedVolunteers.entries.first.key;
+    if (userPointsSortedVolunteers.isNotEmpty) {
+      winnerVolunteer = userPointsSortedVolunteers.entries.first.key;
+    }
   }
 
-  static void allocatePointsDonationsDuplicate() async {
+  static Future<void> allocatePointsDonationsDuplicate() async {
     CollectionReference donations =
         FirebaseFirestore.instance.collection('donations');
     QuerySnapshot querySnapshot = await donations.get();
@@ -60,10 +62,10 @@ class LeaderboardClass {
     for (var doc in querySnapshot.docs) {
       String username = doc['username'];
       if (userPointsDonations.containsKey(username)) {
-        userPointsDonations[username] =
-            calculatePointsDonations(doc) + userPointsDonations[username]!;
+        userPointsDonations[username] = await calculatePointsDonations(doc) +
+            userPointsDonations[username]!;
       } else {
-        userPointsDonations[username] = calculatePointsDonations(doc);
+        userPointsDonations[username] = await calculatePointsDonations(doc);
       }
     }
   }
@@ -73,14 +75,35 @@ class LeaderboardClass {
         userPointsDonations.entries.toList()
           ..sort((a, b) => b.value.compareTo(a.value)));
 
-    winnerDonation = userPointsSortedDonations.entries.first.key;
+    if (userPointsSortedDonations.isNotEmpty) {
+      winnerDonation = userPointsSortedDonations.keys.first;
+    }
   }
 
-  static int calculatePointsDonations(QueryDocumentSnapshot doc) {
-    return doc['rice (kg)'] * 1 +
-        doc['bread'] * 2 +
-        doc['pulses'] * 3 +
-        doc['simple_meals'] * 5 +
-        doc['complex_meals'] * 7;
+  static Future<int> calculatePointsDonations(QueryDocumentSnapshot doc) async {
+    CollectionReference packagedSubCollection =
+        doc.reference.collection('Packaged Food');
+    CollectionReference stapleSubCollection =
+        doc.reference.collection('Staple Food');
+    CollectionReference cookedSubCollection =
+        doc.reference.collection('Cooked Food');
+
+    QuerySnapshot packagedQuery = await packagedSubCollection.get();
+    QuerySnapshot stapleQuery = await stapleSubCollection.get();
+    QuerySnapshot cookedQuery = await cookedSubCollection.get();
+
+    int points = 0;
+
+    for (var doc in packagedQuery.docs) {
+      points = points + int.parse((doc['quantity'] * 7).toString());
+    }
+    for (var doc in stapleQuery.docs) {
+      points = points + int.parse((doc['quantity'] * 5).toString());
+    }
+    for (var doc in cookedQuery.docs) {
+      points = points + int.parse((doc['quantity'] * 10).toString());
+    }
+
+    return points;
   }
 }

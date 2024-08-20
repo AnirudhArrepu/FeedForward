@@ -19,6 +19,7 @@ class _DonationsState extends State<Donations> {
   void initState() {
     super.initState();
     setState(() {});
+    LeaderboardClass.allocatePointsDonations();
   }
 
   @override
@@ -34,6 +35,8 @@ class _DonationsState extends State<Donations> {
         if (doc["username"] == DataClass.username) {
           String foodbank_name = doc['foodbank'];
           int points = LeaderboardClass.userPointsDonations[doc['username']]!;
+          print(foodbank_name);
+          print(points);
           Donations.add({foodbank_name: points});
         }
       }

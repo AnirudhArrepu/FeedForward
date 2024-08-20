@@ -141,9 +141,7 @@ class _CreateFoodBank extends State<CreateFoodBank> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      // Parse the hours worked input to an integer
-
-                      // Call the function to save the data to Firestore
+                      DataClass.addUsername(DataClass.username);
                       await _saveUserData(
                           _foodBankNameController.text,
                           _cityNameController.text,
