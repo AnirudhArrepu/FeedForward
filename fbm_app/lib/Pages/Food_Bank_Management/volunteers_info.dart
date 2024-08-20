@@ -60,103 +60,108 @@ class _volunteers_infoState extends State<volunteers_info> {
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
         ),
       ),
-      body: FutureBuilder<String?>(
-        future: _getFoodBankName(),
-        builder: (context, foodbankSnapshot) {
-          if (foodbankSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (foodbankSnapshot.hasError || !foodbankSnapshot.hasData) {
-            return const Center(
-                child: Text(
-                    "Error or no foodbank found for the location")); // Show error if fetching foodbank data fails
-          }
-
-          final String? foodbankName = foodbankSnapshot.data;
-
-          if (foodbankName == null) {
-            return const Center(
-                child: Text(
-                    "No foodbank found for the specified location")); // Show message if no foodbank matches the location
-          }
-
-          // If the foodbank name is retrieved, fetch the volunteers for that foodbank
-          return FutureBuilder<QuerySnapshot>(
-            future: FirebaseFirestore.instance
-                .collection('volunteers')
-                .where('foodbank',
-                    isEqualTo:
-                        foodbankName) // Filter volunteers by the specific foodbank name
-                .get(),
-            builder: (context, volunteerSnapshot) {
-              if (volunteerSnapshot.connectionState ==
-                  ConnectionState.waiting) {
-                return const Center(
-                    child:
-                        CircularProgressIndicator()); // Show a loading spinner while fetching volunteer data
-              }
-
-              if (volunteerSnapshot.hasError) {
-                return const Center(
-                    child: Text(
-                        "Error fetching volunteer data")); // Show error if fetching volunteer data fails
-              }
-
-              if (!volunteerSnapshot.hasData ||
-                  volunteerSnapshot.data!.docs.isEmpty) {
-                return const Center(
-                    child: Text(
-                  "No volunteers found for the specified foodbank",
-                  style: TextStyle(color: Colors.white),
-                )); // Show message if no volunteers match the foodbank
-              }
-
-              // Get the list of volunteer documents from the snapshot
-              final List<DocumentSnapshot> volunteers =
-                  volunteerSnapshot.data!.docs;
-
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      height: 800,
-                      child: ListView.builder(
-                        itemCount: volunteers.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final volunteerData =
-                              volunteers[index].data() as Map<String, dynamic>;
-                          final serial = 'V${index + 1}';
-                          final foodbank =
-                              volunteerData['foodbank'] ?? 'unknown';
-                          final username = volunteerData['username'];
-                          final hours = volunteerData['hours'] ?? 0;
-
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 15.0, horizontal: 16.0),
-                            child: ListTile(
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text_Theme.text_size(serial, 20),
-                                  Text_Theme.text_size(
-                                      'Username: $username', 20),
-                                ],
-                              ),
-                              subtitle: Text_Theme.text_size(
-                                  'No of Hours Volunteered: $hours', 20),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
         },
+        child: FutureBuilder<String?>(
+          future: _getFoodBankName(),
+          builder: (context, foodbankSnapshot) {
+            if (foodbankSnapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+        
+            if (foodbankSnapshot.hasError || !foodbankSnapshot.hasData) {
+              return const Center(
+                  child: Text(
+                      "Error or no foodbank found for the location")); // Show error if fetching foodbank data fails
+            }
+        
+            final String? foodbankName = foodbankSnapshot.data;
+        
+            if (foodbankName == null) {
+              return const Center(
+                  child: Text(
+                      "No foodbank found for the specified location")); // Show message if no foodbank matches the location
+            }
+        
+            // If the foodbank name is retrieved, fetch the volunteers for that foodbank
+            return FutureBuilder<QuerySnapshot>(
+              future: FirebaseFirestore.instance
+                  .collection('volunteers')
+                  .where('foodbank',
+                      isEqualTo:
+                          foodbankName) // Filter volunteers by the specific foodbank name
+                  .get(),
+              builder: (context, volunteerSnapshot) {
+                if (volunteerSnapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Center(
+                      child:
+                          CircularProgressIndicator()); // Show a loading spinner while fetching volunteer data
+                }
+        
+                if (volunteerSnapshot.hasError) {
+                  return const Center(
+                      child: Text(
+                          "Error fetching volunteer data")); // Show error if fetching volunteer data fails
+                }
+        
+                if (!volunteerSnapshot.hasData ||
+                    volunteerSnapshot.data!.docs.isEmpty) {
+                  return const Center(
+                      child: Text(
+                    "No volunteers found for the specified foodbank",
+                    style: TextStyle(color: Colors.white),
+                  )); // Show message if no volunteers match the foodbank
+                }
+        
+                // Get the list of volunteer documents from the snapshot
+                final List<DocumentSnapshot> volunteers =
+                    volunteerSnapshot.data!.docs;
+        
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 800,
+                        child: ListView.builder(
+                          itemCount: volunteers.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final volunteerData =
+                                volunteers[index].data() as Map<String, dynamic>;
+                            final serial = 'V${index + 1}';
+                            final foodbank =
+                                volunteerData['foodbank'] ?? 'unknown';
+                            final username = volunteerData['username'];
+                            final hours = volunteerData['hours'] ?? 0;
+        
+                            return Card(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 15.0, horizontal: 16.0),
+                              child: ListTile(
+                                title: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text_Theme.text_size(serial, 20),
+                                    Text_Theme.text_size(
+                                        'Username: $username', 20),
+                                  ],
+                                ),
+                                subtitle: Text_Theme.text_size(
+                                    'No of Hours Volunteered: $hours', 20),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }

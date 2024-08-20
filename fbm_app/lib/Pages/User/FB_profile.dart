@@ -38,68 +38,73 @@ class _FbProfileState extends State<FbProfile> {
         ),
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: EdgeInsets.all(16),
-              child: Text_Theme.text_colored("DETAILS", 30, Colors.white),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Text_Theme.text_field('User Name: ${Profile['name']}', 18),
-            SizedBox(
-              height: 15,
-            ),
-            Text_Theme.text_field('Contact info: ${Profile['contactnum']}', 18),
-            SizedBox(
-              height:15 ,),
-            Text_Theme.text_field('E-Mail: ${Profile['email']}', 18),
-            Container(
-                  height: 50,
-                  child: GestureDetector(onDoubleTap: () {
-                    Navigator.pushNamed(context, '/emergency');
-                  }),
-                ),
-            SizedBox(
-              height: 15,
-            ),
-            SizedBox(
-              height: 250,
-            ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 75,
-                ),
-                butt(
-                  text: "My FB",
-                  routeName: DataClass.foodbank.isNotEmpty? "/fb_info":"/create_fb",
-                  icon: Icon(Icons.food_bank),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                butt(
-                  text: "Donations",
-                  routeName: "/mydonations",
-                  icon: Icon(Icons.favorite),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            butt(
-              text: "Volunteer_exp",
-              routeName: "/volunteers",
-              icon: Icon(Icons.account_circle_outlined),
-            ),
-          ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: Text_Theme.text_colored("DETAILS", 30, Colors.white),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Text_Theme.text_field('User Name: ${Profile['name']}', 18),
+              SizedBox(
+                height: 15,
+              ),
+              Text_Theme.text_field('Contact info: ${Profile['contactnum']}', 18),
+              SizedBox(
+                height:15 ,),
+              Text_Theme.text_field('E-Mail: ${Profile['email']}', 18),
+              Container(
+                    height: 50,
+                    child: GestureDetector(onDoubleTap: () {
+                      Navigator.pushNamed(context, '/emergency');
+                    }),
+                  ),
+              SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                height: 250,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 75,
+                  ),
+                  butt(
+                    text: "My FB",
+                    routeName: DataClass.foodbank.isNotEmpty? "/fb_info":"/create_fb",
+                    icon: Icon(Icons.food_bank),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  butt(
+                    text: "Donations",
+                    routeName: "/mydonations",
+                    icon: Icon(Icons.favorite),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              butt(
+                text: "Volunteer_exp",
+                routeName: "/volunteers",
+                icon: Icon(Icons.account_circle_outlined),
+              ),
+            ],
+          ),
         ),
       ),
     );

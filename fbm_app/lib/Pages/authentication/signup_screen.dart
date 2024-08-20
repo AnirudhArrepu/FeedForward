@@ -25,7 +25,7 @@ class _SignupScreenState extends State<SignupScreen>
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController addressTextEditingController = TextEditingController();
   int role =2;
- CommonMethods cMethods = CommonMethods();
+  CommonMethods cMethods = CommonMethods();
  
 
   signUpFormValidation() {
@@ -100,188 +100,193 @@ class _SignupScreenState extends State<SignupScreen>
   Widget build(BuildContext context) 
   {
     return  Scaffold(
-      body: Container( 
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage ('assets/login4.png'),
-            fit: BoxFit.cover,
-            ),
-        ), 
-        child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children:[ 
-              SizedBox(height: 60,),
-              const  Text(
-                "Create an User\'s Acoounts",
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.redAccent,
-                  fontWeight: FontWeight.bold,
-                   fontStyle: FontStyle.italic,
-                  
-                ),
-                ),
-                //Text feilds + button 
-                SizedBox(height: 40,),
-                Padding(
-                  padding: const EdgeInsets.all(22),
-                  child: Column(
-                    children: [
-
-
-                    TextField(
-                      controller: usernameTextEditingController,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText:"User Name ",
-                        labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-
-                    const SizedBox(height: 40,),
-
-                    TextField(
-                      controller: emailTextEditingController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        labelText:"Email id  ",
-                        labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),  
-
-                    const SizedBox(height: 40,),
-
-                     TextField(
-                      controller: passwordTextEditingController,
-                      obscureText: true,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText:"User Password ",
-                        labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Container( 
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage ('assets/login4.png'),
+              fit: BoxFit.cover,
+              ),
+          ), 
+          child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              children:[ 
+                SizedBox(height: 60,),
+                const  Text(
+                  "Create an User\'s Acoounts",
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.bold,
+                     fontStyle: FontStyle.italic,
                     
-                    const SizedBox(height: 40,),
-
-                     TextField(
-                      controller: phoneTextEditingController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText:"Contact number ",
-                        labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),  
-  
-                    const SizedBox(height: 40,),
-                     TextField(
-                      controller: addressTextEditingController,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText:"Address ",
-                        labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ), 
-                    const SizedBox(height: 40,),
-
-                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Radio<int>(value: 0, groupValue: role, onChanged: (int? value){
-                          setState(() {
-                            role =value!;
-                          });
-                        },
-                         activeColor: Colors.purple,
-                        ),
-                        const Text(
-                          "user",
-                          style: TextStyle(color: Colors.white,fontSize: 18),
-                        ),
-                        SizedBox( height: 30,),
-                        Radio(value: 1, groupValue: role, onChanged: (int? value){
-                          setState(() {
-                            role = value!;
-                          });
-                        },
-                         activeColor: Colors.purple,
-                        ),
-                        const Text(
-                          "Restaurant",
-                          style: TextStyle(color: Colors.white,fontSize: 18),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-
-                    ElevatedButton(
-                      onPressed: () 
-                      {
-                        signUpFormValidation();
-
-                     },
-                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  Colors.purple,
-                      padding: EdgeInsets.symmetric(horizontal: 85,vertical: 15)
-                     ),
-                    
-                    child: Text(
-                      "Sign Up",
-                       style: TextStyle(
-                       color: Colors.white,fontSize: 14 
-                      ),
-                    ),
-                    ),
-
-                    ],
-                  )
-                  
                   ),
-              
-
-                //textbutton
-                SizedBox(height: 1,),
-
-                TextButton(
-                  onPressed: ()
-                  {
-                  
-                    Navigator.push(context, MaterialPageRoute(builder: (c)=>LoginScreen()));
-
-                  },
-                   child: const Text(
-                    "Already have an Account? Login Here",
-                    style: TextStyle(
-                      color: Colors.cyan,
-                      fontSize: 18,
+                  ),
+                  //Text feilds + button 
+                  SizedBox(height: 40,),
+                  Padding(
+                    padding: const EdgeInsets.all(22),
+                    child: Column(
+                      children: [
+        
+        
+                      TextField(
+                        controller: usernameTextEditingController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText:"User Name ",
+                          labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+        
+                      const SizedBox(height: 40,),
+        
+                      TextField(
+                        controller: emailTextEditingController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText:"Email id  ",
+                          labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),  
+        
+                      const SizedBox(height: 40,),
+        
+                       TextField(
+                        controller: passwordTextEditingController,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText:"User Password ",
+                          labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 40,),
+        
+                       TextField(
+                        controller: phoneTextEditingController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText:"Contact number ",
+                          labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ),  
+          
+                      const SizedBox(height: 40,),
+                       TextField(
+                        controller: addressTextEditingController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText:"Address ",
+                          labelStyle: TextStyle(color: Colors.white,fontSize: 18), 
+                        ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                        ),
+                      ), 
+                      const SizedBox(height: 40,),
+        
+                       Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Radio<int>(value: 0, groupValue: role, onChanged: (int? value){
+                            setState(() {
+                              role =value!;
+                            });
+                          },
+                           activeColor: Colors.purple,
+                          ),
+                          const Text(
+                            "user",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                          SizedBox( height: 30,),
+                          Radio(value: 1, groupValue: role, onChanged: (int? value){
+                            setState(() {
+                              role = value!;
+                            });
+                          },
+                           activeColor: Colors.purple,
+                          ),
+                          const Text(
+                            "Restaurant",
+                            style: TextStyle(color: Colors.white,fontSize: 18),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20,),
+        
+                      ElevatedButton(
+                        onPressed: () 
+                        {
+                          signUpFormValidation();
+        
+                       },
+                       style: ElevatedButton.styleFrom(
+                        backgroundColor:  Colors.purple,
+                        padding: EdgeInsets.symmetric(horizontal: 85,vertical: 15)
+                       ),
+                      
+                      child: Text(
+                        "Sign Up",
+                         style: TextStyle(
+                         color: Colors.white,fontSize: 14 
+                        ),
+                      ),
+                      ),
+        
+                      ],
+                    )
+                    
                     ),
-                   )),
-                   SizedBox(height: 200),
-            ]
-          )
-      ),
-      ),
+                
+        
+                  //textbutton
+                  SizedBox(height: 1,),
+        
+                  TextButton(
+                    onPressed: ()
+                    {
+                    
+                      Navigator.push(context, MaterialPageRoute(builder: (c)=>LoginScreen()));
+        
+                    },
+                     child: const Text(
+                      "Already have an Account? Login Here",
+                      style: TextStyle(
+                        color: Colors.cyan,
+                        fontSize: 18,
+                      ),
+                     )),
+                     SizedBox(height: 200),
+              ]
+            )
+        ),
+        ),
+        ),
       ),
     );
   }

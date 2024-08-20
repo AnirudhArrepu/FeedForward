@@ -54,57 +54,62 @@ class _OutletsState extends State<Outlets> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 800,
-              child: ListView.builder(
-                itemCount: outlets.length,
-                itemBuilder: (context, index) {
-                  final outlet = outlets[index];
-                  return GestureDetector(
-                    onDoubleTap: () {
-                      Navigator.pushNamed(context, '/emergency');
-                    },
-                    child: Card(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 10.0,
-                        horizontal: 16.0,
-                      ),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text_Theme.text_size(outlet, 25),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              FloatingActionButton.extended(
-                                label: Text_Theme.text_white("Donate"),
-                                backgroundColor: AppTheme.secondaryColor,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (c) => DonationForm(
-                                        foodbank: outlet,
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 800,
+                child: ListView.builder(
+                  itemCount: outlets.length,
+                  itemBuilder: (context, index) {
+                    final outlet = outlets[index];
+                    return GestureDetector(
+                      onDoubleTap: () {
+                        Navigator.pushNamed(context, '/emergency');
+                      },
+                      child: Card(
+                        margin: const EdgeInsets.symmetric(
+                          vertical: 10.0,
+                          horizontal: 16.0,
+                        ),
+                        child: Column(
+                          children: [
+                            ListTile(
+                              title: Text_Theme.text_size(outlet, 25),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                FloatingActionButton.extended(
+                                  label: Text_Theme.text_white("Donate"),
+                                  backgroundColor: AppTheme.secondaryColor,
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (c) => DonationForm(
+                                          foodbank: outlet,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(Icons.handshake),
-                              ),
-                            ],
-                          ),
-                        ],
+                                    );
+                                  },
+                                  icon: const Icon(Icons.handshake),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -48,86 +48,91 @@ class _FB_ConnectedState extends State<FB_Connected> {
           ),
         ),
       ),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
-        future: getFoodbankdetails(currentUsername),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasError) {
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: FutureBuilder<List<Map<String, dynamic>>>(
+          future: getFoodbankdetails(currentUsername),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+        
+            if (snapshot.hasError) {
+              return Stack(
+                children: [
+                  const Center(child: Text("Error fetching data")),
+                  _buildBottomButton(),
+                ],
+              );
+            }
+        
+            final foodBanks = snapshot.data ?? [];
+        
             return Stack(
               children: [
-                const Center(child: Text("Error fetching data")),
+                if (foodBanks.isEmpty)
+                  const Center(child: Text("No Food Banks Found")),
+                if (foodBanks.isNotEmpty)
+                  ListView.builder(
+                    itemCount: foodBanks.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final foodBank = foodBanks[index];
+                      return ListTile(
+                        leading: Text(
+                          'FB${index + 1}', // Start numbering from 1
+                          style: const TextStyle(
+                            fontSize: 30,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                          ),
+                        ),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextField(
+                              controller: TextEditingController(
+                                  text: foodBank['name'] ?? 'Food Bank Name'),
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextField(
+                              controller: TextEditingController(
+                                  text: foodBank['contactinfo'].toString() ?? 'Contact Info'),
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            TextField(
+                              controller: TextEditingController(
+                                  text: foodBank['address'].toString() ?? 'Foodbank Address'),
+                              readOnly: true,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                filled: true,
+                                fillColor: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 _buildBottomButton(),
               ],
             );
-          }
-
-          final foodBanks = snapshot.data ?? [];
-
-          return Stack(
-            children: [
-              if (foodBanks.isEmpty)
-                const Center(child: Text("No Food Banks Found")),
-              if (foodBanks.isNotEmpty)
-                ListView.builder(
-                  itemCount: foodBanks.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final foodBank = foodBanks[index];
-                    return ListTile(
-                      leading: Text(
-                        'FB${index + 1}', // Start numbering from 1
-                        style: const TextStyle(
-                          fontSize: 30,
-                          color: Color.fromARGB(255, 255, 255, 255),
-                        ),
-                      ),
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextField(
-                            controller: TextEditingController(
-                                text: foodBank['name'] ?? 'Food Bank Name'),
-                            readOnly: true,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextField(
-                            controller: TextEditingController(
-                                text: foodBank['contactinfo'].toString() ?? 'Contact Info'),
-                            readOnly: true,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          TextField(
-                            controller: TextEditingController(
-                                text: foodBank['address'].toString() ?? 'Foodbank Address'),
-                            readOnly: true,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              filled: true,
-                              fillColor: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-              _buildBottomButton(),
-            ],
-          );
-        },
+          },
+        ),
       ),
     );
   }
