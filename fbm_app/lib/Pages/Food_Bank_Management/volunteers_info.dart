@@ -15,33 +15,29 @@ class volunteers_info extends StatefulWidget {
 class _volunteers_infoState extends State<volunteers_info> {
   String foodbank = DataClass.foodbank;
 
-  // Fetch foodbank name based on the GeoPoint location
   Future<String?> _getFoodBankName() async {
     try {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('foodbank')
-          .where('name', isEqualTo: foodbank) // Correct syntax
+          .where('name', isEqualTo: foodbank)
           .get();
 
       if (querySnapshot.docs.isNotEmpty) {
         final foodbankData =
             querySnapshot.docs.first.data() as Map<String, dynamic>;
-        return foodbankData[
-            'name']; // Assuming the foodbank document has a 'name' field
+        return foodbankData['name'];
       } else {
-        return null; // No matching foodbank found
+        return null;
       }
     } catch (e) {
       print("Error fetching foodbank data: $e");
-      return null; // Return null in case of an error
+      return null;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Assign a temporary target location (GeoPoint)
-    final GeoPoint targetLocation =
-        GeoPoint(26.2967719, 73.0351433); // Replace with your target location
+    final GeoPoint targetLocation = GeoPoint(26.2967719, 73.0351433);
 
     return Scaffold(
       floatingActionButton: Align(
@@ -65,12 +61,10 @@ class _volunteers_infoState extends State<volunteers_info> {
         ),
       ),
       body: FutureBuilder<String?>(
-        future: _getFoodBankName(), // Fetch the foodbank name based on location
+        future: _getFoodBankName(),
         builder: (context, foodbankSnapshot) {
           if (foodbankSnapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-                child:
-                    CircularProgressIndicator()); // Show a loading spinner while fetching foodbank data
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (foodbankSnapshot.hasError || !foodbankSnapshot.hasData) {
@@ -135,6 +129,7 @@ class _volunteers_infoState extends State<volunteers_info> {
                           final serial = 'V${index + 1}';
                           final foodbank =
                               volunteerData['foodbank'] ?? 'unknown';
+                          final username = volunteerData['username'];
                           final hours = volunteerData['hours'] ?? 0;
 
                           return Card(
@@ -146,7 +141,7 @@ class _volunteers_infoState extends State<volunteers_info> {
                                 children: [
                                   Text_Theme.text_size(serial, 20),
                                   Text_Theme.text_size(
-                                      'Food Bank Name: $foodbank', 20),
+                                      'Username: $username', 20),
                                 ],
                               ),
                               subtitle: Text_Theme.text_size(

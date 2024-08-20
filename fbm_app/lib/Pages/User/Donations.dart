@@ -15,39 +15,33 @@ class Donations extends StatefulWidget {
 }
 
 class _DonationsState extends State<Donations> {
+  final List<Map<String, int>> Donations = [];
+
   @override
   void initState() {
     super.initState();
-    setState(() {});
     LeaderboardClass.allocatePointsDonations();
+    loadUserDonations();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final List<Map<String, int>> Donations = [];
+  void loadUserDonations() async {
+    CollectionReference donations =
+        FirebaseFirestore.instance.collection('donations');
+    QuerySnapshot querySnapshot = await donations.get();
 
-    void loadUserDonations() async {
-      CollectionReference donations =
-          FirebaseFirestore.instance.collection('donations');
-      QuerySnapshot querySnapshot = await donations.get();
-
-      for (var doc in querySnapshot.docs) {
-        if (doc["username"] == DataClass.username) {
-          String foodbank_name = doc['foodbank'];
-          int points = LeaderboardClass.userPointsDonations[doc['username']]!;
-          print(foodbank_name);
-          print(points);
-          Donations.add({foodbank_name: points});
-        }
+    for (var doc in querySnapshot.docs) {
+      if (doc["username"] == DataClass.username) {
+        String foodbank_name = doc['foodbank'];
+        int points = LeaderboardClass.userPointsDonations[doc['username']]!;
+        print(foodbank_name);
+        print(points);
+        Donations.add({foodbank_name: points});
       }
     }
+  }
 
-    @override
-    void initState() {
-      super.initState();
-      LeaderboardClass.allocatePointsDonations();
-      loadUserDonations();
-    }
+  
+  Widget build(BuildContext context) {
 
     return Scaffold(
       backgroundColor: Colors.black,
