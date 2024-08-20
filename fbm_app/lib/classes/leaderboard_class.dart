@@ -4,13 +4,28 @@ class LeaderboardClass {
   static String winnerVolunteer = "";
   static String winnerDonation = " ";
 
+  //Donations
   static Map<String, int> userPointsSortedDonations = {};
   static Map<String, int> userPointsDonations = {};
-
+  //Volunteers
   static Map<String, int> userPointsSortedVolunteers = {};
   static Map<String, int> userPointsVolunteers = {};
 
-  static void allocatePointsVolunteers() async {
+  static void allocatePointsVolunteers() {
+    userPointsDonations = {};
+    userPointsSortedDonations = {};
+    allocatePointsVolunteersDuplicate();
+    rankUsersVolunteers();
+  }
+
+  static void allocatePointsDonations() {
+    userPointsSortedVolunteers = {};
+    userPointsVolunteers = {};
+    allocatePointsDonationsDuplicate();
+    rankUsersDonations();
+  }
+
+  static void allocatePointsVolunteersDuplicate() async {
     CollectionReference volunteers =
         FirebaseFirestore.instance.collection('volunteers');
 
@@ -37,7 +52,7 @@ class LeaderboardClass {
     winnerVolunteer = userPointsSortedVolunteers.entries.first.key;
   }
 
-  static void allocatePointsDonations() async {
+  static void allocatePointsDonationsDuplicate() async {
     CollectionReference donations =
         FirebaseFirestore.instance.collection('donations');
     QuerySnapshot querySnapshot = await donations.get();

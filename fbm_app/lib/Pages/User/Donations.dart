@@ -34,7 +34,7 @@ class _DonationsState extends State<Donations> {
         if (doc["username"] == DataClass.username) {
           String foodbank_name = doc['foodbank'];
           int points = LeaderboardClass.userPointsDonations[doc['username']]!;
-          Donations.add({foodbank_name: points });
+          Donations.add({foodbank_name: points});
         }
       }
     }
@@ -42,6 +42,7 @@ class _DonationsState extends State<Donations> {
     @override
     void initState() {
       super.initState();
+      LeaderboardClass.allocatePointsDonations();
       loadUserDonations();
     }
 
@@ -70,9 +71,10 @@ class _DonationsState extends State<Donations> {
                           margin: EdgeInsets.symmetric(
                               vertical: 10.0, horizontal: 16.0),
                           child: ListTile(
-                            title: Text_Theme.text_size('Foodbank: ${donation.keys.first}', 20),
-                            subtitle:
-                                Text_Theme.text_size('Points: ${donation.values.first}', 15),
+                            title: Text_Theme.text_size(
+                                'Foodbank: ${donation.keys.first}', 20),
+                            subtitle: Text_Theme.text_size(
+                                'Points: ${donation.values.first}', 15),
                           ));
                     })),
             Container(

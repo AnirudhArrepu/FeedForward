@@ -1,14 +1,14 @@
+import 'package:fbm_app/Inventory/Cooked_food.dart';
+import 'package:fbm_app/Inventory/Inventory.dart';
+import 'package:fbm_app/Inventory/Packaged_food.dart';
+import 'package:fbm_app/Inventory/staple_food.dart';
 import 'package:fbm_app/Pages/Forms/create_FB.dart';
 import 'package:fbm_app/Pages/HomePages/SplashScreen.dart';
-import 'package:fbm_app/Pages/Inventory/Cooked_food.dart';
-import 'package:fbm_app/Pages/Inventory/Packaged_food.dart';
-import 'package:fbm_app/Pages/Inventory/staple_food.dart';
 import 'package:fbm_app/Pages/User/Donations.dart';
 // import 'package:fbm_app/Pages/EmergencyPage.dart';
 import 'package:fbm_app/Pages/User/FB_profile.dart';
 import 'package:fbm_app/Pages/Food_Bank_Management/Food_Bank_m.dart';
 import 'package:fbm_app/Pages/HomePages/Homepage.dart';
-import 'package:fbm_app/Pages/Inventory/Inventory.dart';
 import 'package:fbm_app/Pages/Food_Bank_Management/Outlets.dart';
 import 'package:fbm_app/Pages/Restaurant/Rprofile.dart';
 import 'package:fbm_app/Pages/Restaurant/fbanks_connected.dart';
