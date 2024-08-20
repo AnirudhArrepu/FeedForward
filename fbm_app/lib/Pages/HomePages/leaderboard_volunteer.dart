@@ -17,7 +17,7 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
   }
 
   void loadingLeaderboard() async {
-    await LeaderboardClass.allocatePointsDonations();
+    // await LeaderboardClass.allocatePointsDonations();
     await LeaderboardClass.allocatePointsVolunteers();
     setState(() {});
   }
