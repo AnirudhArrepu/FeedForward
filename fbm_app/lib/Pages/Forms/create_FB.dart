@@ -89,118 +89,123 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
         backgroundColor: AppTheme.titleColor(),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: <Widget>[
-              const SizedBox(
-                height: 50,
-              ),
-              TextField(
-                controller: _foodBankNameController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  labelText: 'Food Bank Name',
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                  border: OutlineInputBorder(),
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: <Widget>[
+                const SizedBox(
+                  height: 50,
                 ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TextField(
-                controller: _contactInfoController,
-                keyboardType: TextInputType.number,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  labelText: 'Contact Info',
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TextField(
-                controller: _cityNameController,
-                keyboardType: TextInputType.text,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  labelText: 'City Name',
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              TextField(
-                controller: _addressController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  labelText: 'Address',
-                  labelStyle: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: clearButton,
-                    child: const Text('Clear All'),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await _saveUserData(
-                          _foodBankNameController.text,
-                          _cityNameController.text,
-                          _addressController.text,
-                          int.parse(_contactInfoController.text));
-                      DataClass.addUsername(DataClass.username);
-                      setState(() {});
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text('Data saved successfully')),
-                      );
-                      _foodBankNameController.clear();
-                      _contactInfoController.clear();
-                      _cityNameController.clear();
-                      _addressController.clear();
-                      NotificationClass('New Foodbank ${DataClass.foodbank}',
-                          'by ${DataClass.username}', false, false);
-                    },
-                    child: const Text(
-                      "SUBMIT",
+                TextField(
+                  controller: _foodBankNameController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Food Bank Name',
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
                     ),
+                    border: OutlineInputBorder(),
                   ),
-                ],
-              ),
-            ],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TextField(
+                  controller: _contactInfoController,
+                  keyboardType: TextInputType.number,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Contact Info',
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TextField(
+                  controller: _cityNameController,
+                  keyboardType: TextInputType.text,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'City Name',
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TextField(
+                  controller: _addressController,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    labelText: 'Address',
+                    labelStyle: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                const SizedBox(
+                  height: 100,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      onPressed: clearButton,
+                      child: const Text('Clear All'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        await _saveUserData(
+                            _foodBankNameController.text,
+                            _cityNameController.text,
+                            _addressController.text,
+                            int.parse(_contactInfoController.text));
+                        DataClass.addUsername(DataClass.username);
+                        setState(() {});
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('Data saved successfully')),
+                        );
+                        _foodBankNameController.clear();
+                        _contactInfoController.clear();
+                        _cityNameController.clear();
+                        _addressController.clear();
+                        NotificationClass('New Foodbank ${DataClass.foodbank}',
+                            'by ${DataClass.username}', false, false);
+                      },
+                      child: const Text(
+                        "SUBMIT",
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

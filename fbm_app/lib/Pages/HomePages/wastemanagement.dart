@@ -100,54 +100,59 @@ class _wasteState extends State<waste> {
         title: Text('Classify Waste'),
         centerTitle: true,
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 400,
-            child: imageSelected == null
-                ? Image.asset(
-                    'assets/re_nonre_vector.png',
-                  )
-                : Image.file(
-                    File(imageSelected!.path),
-                  ),
-          ),
-          SizedBox(
-            height: 90,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue),
-                child:
-                    IconButton(onPressed: pickImage, icon: Icon(Icons.upload)),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.blue),
-                child: TextButton(onPressed: sendImage, child: Text('PREDICT')),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          output == null ? Text("") : Text(output!),
-          Container(
-            height: 50,
-            child: GestureDetector(onDoubleTap: () {
-              Navigator.pushNamed(context, '/emergency');
-            }),
-          ),
-        ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 400,
+              child: imageSelected == null
+                  ? Image.asset(
+                      'assets/re_nonre_vector.png',
+                    )
+                  : Image.file(
+                      File(imageSelected!.path),
+                    ),
+            ),
+            SizedBox(
+              height: 90,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child:
+                      IconButton(onPressed: pickImage, icon: Icon(Icons.upload)),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue),
+                  child: TextButton(onPressed: sendImage, child: Text('PREDICT')),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            output == null ? Text("") : Text(output!),
+            Container(
+              height: 50,
+              child: GestureDetector(onDoubleTap: () {
+                Navigator.pushNamed(context, '/emergency');
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

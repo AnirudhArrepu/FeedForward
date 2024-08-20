@@ -43,28 +43,33 @@ class _DonationFormState extends State<DonationForm> {
         ),
         centerTitle: false,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 20),
-            for (int i = 0; i < widgets.length; i++) widgets[i],
-            const SizedBox(height: 40),
-            FloatingActionButton.extended(
-              label: const Text("Submit Donation"),
-              backgroundColor: AppTheme.secondaryColor,
-              onPressed: () async {
-                await submitDonation();
-              },
-              icon: const Icon(Icons.handshake),
-            ),
-            const SizedBox(height: 20),
-            FloatingActionButton.extended(
-              label: const Text("Add Item"),
-              icon: const Icon(Icons.add),
-              onPressed: addWidgets,
-            ),
-          ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 20),
+              for (int i = 0; i < widgets.length; i++) widgets[i],
+              const SizedBox(height: 40),
+              FloatingActionButton.extended(
+                label: const Text("Submit Donation"),
+                backgroundColor: AppTheme.secondaryColor,
+                onPressed: () async {
+                  await submitDonation();
+                },
+                icon: const Icon(Icons.handshake),
+              ),
+              const SizedBox(height: 20),
+              FloatingActionButton.extended(
+                label: const Text("Add Item"),
+                icon: const Icon(Icons.add),
+                onPressed: addWidgets,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -155,7 +160,9 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Food item added successfully to $selectedFoodType!')),
+        SnackBar(
+            content:
+                Text('Food item added successfully to $selectedFoodType!')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -222,8 +229,8 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
                 controller: controllerExpiryDate,
                 decoration: const InputDecoration(
                     hintText: "Enter Expiry Date (YYYY-MM-DD)",
-            hintStyle: TextStyle(color: Colors.black54),
-            border: OutlineInputBorder())),
+                    hintStyle: TextStyle(color: Colors.black54),
+                    border: OutlineInputBorder())),
           ),
         ],
       ),

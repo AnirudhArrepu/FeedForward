@@ -13,39 +13,43 @@ class Inventory extends StatelessWidget {
         title: const Text(
           "Inventory",
           style: TextStyle(
-            fontWeight: FontWeight.bold, 
+            fontWeight: FontWeight.bold,
             color: Color.fromARGB(235, 0, 0, 0),
           ),
         ),
         centerTitle: true,
       ),
-      
-      body: Padding(
-        padding: EdgeInsets.all(50),
-        child: Column(
-          children: [
-                  butt(
-                    text: "Cooked Food",
-                    routeName: "/cooked_food",
-                    icon: Icon(Icons.restaurant),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  butt(
-                    text: "Packaged Food",
-                    routeName: "/packaged_food",
-                    icon: Icon(Icons.restaurant),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                    butt(
-                    text: "Staple Food",
-                    routeName: "/staple_food",
-                    icon: Icon(Icons.restaurant),
-                  ),
-          ],
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Padding(
+          padding: EdgeInsets.all(50),
+          child: Column(
+            children: [
+              butt(
+                text: "Cooked Food",
+                routeName: "/cooked_food",
+                icon: Icon(Icons.restaurant),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              butt(
+                text: "Packaged Food",
+                routeName: "/packaged_food",
+                icon: Icon(Icons.restaurant),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              butt(
+                text: "Staple Food",
+                routeName: "/staple_food",
+                icon: Icon(Icons.restaurant),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -35,47 +35,57 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
             ),
           ),
         ),
-        body: ListView(padding: const EdgeInsets.all(16.0), children: [
-          const SizedBox(
-            height: 70,
-          ),
-          Container(
-            color: Colors.brown,
-            height: 30,
-            width: 120,
-            child: const Center(
-              child: Text(
-                "Volunteer",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
+        body: GestureDetector(
+          onDoubleTap: () => {
+            Navigator.pushNamed(context, '/emergency'),
+          },
+          child: ListView(padding: const EdgeInsets.all(16.0), children: [
+            const SizedBox(
+              height: 70,
+            ),
+            Container(
+              color: Colors.brown,
+              height: 30,
+              width: 120,
+              child: const Center(
+                child: Text(
+                  "Volunteer",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
-            color: Colors.brown,
-            height: 500,
-            child: LeaderboardClass.userPointsDonations.length==0? CircularProgressIndicator(): ListView.builder(
-              itemCount: LeaderboardClass.userPointsSortedVolunteers.length < 10
-                  ? LeaderboardClass.userPointsSortedVolunteers.length
-                  : 10,
-              itemBuilder: (BuildContext context, int index) {
-                var user = LeaderboardClass.userPointsSortedVolunteers.entries
-                    .toList()[index]
-                    .key;
-                return ListTile(
-                  leading: Text(
-                    '${index + 1}',
-                    style: const TextStyle(
-                      fontSize: 15,
+            Container(
+              color: Colors.brown,
+              height: 500,
+              child: LeaderboardClass.userPointsDonations.length == 0
+                  ? CircularProgressIndicator()
+                  : ListView.builder(
+                      itemCount: LeaderboardClass
+                                  .userPointsSortedVolunteers.length <
+                              10
+                          ? LeaderboardClass.userPointsSortedVolunteers.length
+                          : 10,
+                      itemBuilder: (BuildContext context, int index) {
+                        var user = LeaderboardClass
+                            .userPointsSortedVolunteers.entries
+                            .toList()[index]
+                            .key;
+                        return ListTile(
+                          leading: Text(
+                            '${index + 1}',
+                            style: const TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          title: Text(user),
+                        );
+                      },
                     ),
-                  ),
-                  title: Text(user),
-                );
-              },
             ),
-          ),
-        ]));
+          ]),
+        ));
   }
 }

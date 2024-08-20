@@ -86,12 +86,17 @@ class _MapOutletsState extends State<MapOutlets> {
         title: const Text('MAP'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Card(
-          elevation: 4,
-          child: MapWidget(
-              center: _center, mapController: _mapController, markers: markers),
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Card(
+            elevation: 4,
+            child: MapWidget(
+                center: _center, mapController: _mapController, markers: markers),
+          ),
         ),
       ),
     );

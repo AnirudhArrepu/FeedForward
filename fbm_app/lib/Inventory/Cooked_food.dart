@@ -69,59 +69,65 @@ class _CookedFoodState extends State<CookedFood> {
         ),
         centerTitle: true,
       ),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : hasError
-              ? const Center(
-                  child: Text("Error fetching data"),
-                )
-              : cookedFoodItems.isEmpty
-                  ? const Center(
-                      child: Text("No cooked food items found"),
-                    )
-                  : ListView.builder(
-                      itemCount: cookedFoodItems.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = cookedFoodItems[index];
-                        final itemName = item['itemName'] ?? 'Unknown Item';
-                        final quantity = item['quantity'] ?? 'Unknown Quantity';
-                        final Timestamp expiryTimestamp =
-                            item['expiryDate'] ?? Timestamp.now();
-                        final expiryDate = expiryTimestamp.toDate();
-                        return Card(
-                          margin: const EdgeInsets.symmetric(
-                            vertical: 10.0,
-                            horizontal: 16.0,
-                          ),
-                          child: ListTile(
-                            leading: Text(
-                              '${index + 1}',
-                              style: TextStyle(
-                                fontSize: 30,
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : hasError
+                ? const Center(
+                    child: Text("Error fetching data"),
+                  )
+                : cookedFoodItems.isEmpty
+                    ? const Center(
+                        child: Text("No cooked food items found"),
+                      )
+                    : ListView.builder(
+                        itemCount: cookedFoodItems.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = cookedFoodItems[index];
+                          final itemName = item['itemName'] ?? 'Unknown Item';
+                          final quantity =
+                              item['quantity'] ?? 'Unknown Quantity';
+                          final Timestamp expiryTimestamp =
+                              item['expiryDate'] ?? Timestamp.now();
+                          final expiryDate = expiryTimestamp.toDate();
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 10.0,
+                              horizontal: 16.0,
+                            ),
+                            child: ListTile(
+                              leading: Text(
+                                '${index + 1}',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                ),
+                              ),
+                              title: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Item: $itemName',
+                                    style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  const SizedBox(height: 5),
+                                  Text('Quantity: $quantity'),
+                                  const SizedBox(height: 5),
+                                  Text(
+                                      'Expiry Date: ${expiryDate.toLocal().toString().split(' ')[0]}'),
+                                ],
                               ),
                             ),
-                            title: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Item: $itemName',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(height: 5),
-                                Text('Quantity: $quantity'),
-                                const SizedBox(height: 5),
-                                Text(
-                                    'Expiry Date: ${expiryDate.toLocal().toString().split(' ')[0]}'),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                          );
+                        },
+                      ),
+      ),
     );
   }
 }
