@@ -5,10 +5,9 @@ import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class leaderboard extends StatefulWidget {
+class leaderboard extends StatelessWidget {
   const leaderboard({super.key});
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppTheme.bgcolor(),
@@ -31,7 +30,7 @@ class leaderboard extends StatefulWidget {
           children: [
             butt(
               text: "Donors",
-              routeName: '/l_donations',
+              routeName: '/l_donation',
               icon: Icon(Icons.people),
             ),
             SizedBox(
@@ -46,17 +45,5 @@ class leaderboard extends StatefulWidget {
         ),
       ),
     );
-
-    @override
-    State<StatefulWidget> createState() {
-      // TODO: implement createState
-      throw UnimplementedError();
-    }
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
