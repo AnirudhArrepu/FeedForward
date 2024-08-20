@@ -28,4 +28,5 @@
 
 
 <h3>Contributions</h3>
+<p>Check our detailed contributions <a href="https://docs.google.com/document/d/1d7hsIui84KKzhF1QA0ngyRFdjk6ZCZP07JLtsHXVUEI/edit?usp=sharing">here</a>: </p>
 <p>You can view our contributions in the old repository, which had to be terminated due to conflicts <br> https://github.com/VasantatiChitraksh/FoodBankManagement/graphs/contributors</p>
