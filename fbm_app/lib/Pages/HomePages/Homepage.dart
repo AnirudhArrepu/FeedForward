@@ -37,7 +37,7 @@ class _HomepageState extends State<Homepage> {
     setState(() {});
   }
 
-  void scrollDown() {
+  void _scrollToBottom() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
       duration: Duration(milliseconds: 300),
@@ -132,8 +132,9 @@ class _HomepageState extends State<Homepage> {
               ),
               SizedBox(height: 40),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  SizedBox(width: 70),
                   ElevatedButton.icon(
                     onPressed: () {
                       if (r == 0) {
@@ -166,15 +167,6 @@ class _HomepageState extends State<Homepage> {
                       "PROFILE",
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                  ),
-                  SizedBox(width: 10), 
-                  ElevatedButton(
-                    onPressed: scrollDown,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 243, 4, 4),
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                    ),
-                    child: Icon(Icons.keyboard_arrow_down, color: Colors.black),
                   ),
                 ],
               ),
@@ -212,6 +204,11 @@ class _HomepageState extends State<Homepage> {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _scrollToBottom,
+        child: Icon(Icons.keyboard_arrow_down),
+        backgroundColor: Color.fromARGB(255, 243, 4, 4),
       ),
     );
   }
