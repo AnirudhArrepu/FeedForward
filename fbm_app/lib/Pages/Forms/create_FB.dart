@@ -35,7 +35,7 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
   static const String _apiKey = '271e15cf1a004fe0933d56e6a85b345b';
   static const String _baseUrl = 'https://api.opencagedata.com/geocode/v1/json';
 
-  Future<LatLng> getGeoCode(String cityName) async {
+  Future<GeoPoint> getGeoCode(String cityName) async {
     final Uri url = Uri.parse('$_baseUrl?q=$cityName&key=$_apiKey');
     try {
       final response = await http.get(url);
@@ -46,7 +46,7 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
         if (data['results'].isNotEmpty) {
           final lat = data['results'][0]['geometry']['lat'];
           final lng = data['results'][0]['geometry']['lng'];
-          return LatLng(lat, lng);
+          return GeoPoint(lat, lng);
         }
       } else {
         print('Failed to load data. Status code: ${response.statusCode}');
@@ -54,7 +54,7 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
     } catch (e) {
       print('Error: $e');
     }
-    return LatLng(0, 0);
+    return GeoPoint(0, 0);
   }
 
   Future<void> _saveUserData(
@@ -175,20 +175,16 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      DataClass.addUsername(DataClass.username);
                       await _saveUserData(
                           _foodBankNameController.text,
                           _cityNameController.text,
                           _addressController.text,
                           int.parse(_contactInfoController.text));
-
-                      // Show a Snackbar to confirm data submission
+                      DataClass.addUsername(DataClass.username);
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Data saved successfully')),
                       );
-
-                      // Clear the input fields after submission
                       _foodBankNameController.clear();
                       _contactInfoController.clear();
                       _cityNameController.clear();
