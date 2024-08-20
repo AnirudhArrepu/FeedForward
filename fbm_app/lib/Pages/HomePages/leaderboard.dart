@@ -5,8 +5,20 @@ import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class leaderboard extends StatelessWidget {
+class leaderboard extends StatefulWidget {
   const leaderboard({super.key});
+
+  @override
+  State<leaderboard> createState() => _leaderboardState();
+}
+
+class _leaderboardState extends State<leaderboard> {
+  @override
+  void initState() {
+    super.initState();
+    LeaderboardClass.allocatePointsDonations();
+    LeaderboardClass.allocatePointsVolunteers();
+  }
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +36,7 @@ class leaderboard extends StatelessWidget {
         onDoubleTap: () => {
           Navigator.pushNamed(context, '/emergency'),
         },
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

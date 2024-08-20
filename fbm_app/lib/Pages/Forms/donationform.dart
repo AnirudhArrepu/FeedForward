@@ -218,33 +218,12 @@ class _ItemDonationWidgetState extends State<ItemDonationWidget> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () async {
-                DateTime? pickedDate = await showDatePicker(
-                  context: context,
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2101),
-                );
-
-                if (pickedDate != null) {
-                  setState(() {
-                    controllerExpiryDate.text =
-                        "${pickedDate.year}-${pickedDate.month.toString().padLeft(2, '0')}-${pickedDate.day.toString().padLeft(2, '0')}";
-                  });
-                }
-              },
-              child: AbsorbPointer(
-                child: TextField(
-                  controller: controllerExpiryDate,
-                  decoration: const InputDecoration(
-                    hintText: "Enter Expiry Date",
-                    hintStyle: TextStyle(color: Colors.black54),
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-              ),
-            ),
+            child: TextField(
+                controller: controllerExpiryDate,
+                decoration: const InputDecoration(
+                    hintText: "Enter Expiry Date (YYYY-MM-DD)",
+            hintStyle: TextStyle(color: Colors.black54),
+            border: OutlineInputBorder())),
           ),
         ],
       ),
