@@ -20,6 +20,7 @@ class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
     // await LeaderboardClass.allocatePointsDonations();
     await LeaderboardClass.allocatePointsVolunteers();
     setState(() {});
+    LeaderboardClass.allocatePointsDonations();
   }
 
   @override

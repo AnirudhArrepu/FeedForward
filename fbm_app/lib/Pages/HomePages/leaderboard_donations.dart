@@ -20,6 +20,7 @@ class _LeaderboardDonationsState extends State<LeaderboardDonations> {
     await LeaderboardClass.allocatePointsDonations();
     // await LeaderboardClass.allocatePointsVolunteers();
     setState(() {});
+    LeaderboardClass.rankUsersDonations();
   }
 
   @override
@@ -39,7 +40,9 @@ class _LeaderboardDonationsState extends State<LeaderboardDonations> {
           onDoubleTap: () => {
             Navigator.pushNamed(context, '/emergency'),
           },
-          child: ListView(padding: const EdgeInsets.all(16.0), children: [
+          child: LeaderboardClass.userPointsVolunteers.length == 0
+                  ? CircularProgressIndicator()
+                  : ListView(padding: const EdgeInsets.all(16.0), children: [
             const SizedBox(
               height: 70,
             ),
