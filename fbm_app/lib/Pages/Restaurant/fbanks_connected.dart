@@ -94,7 +94,7 @@ class FB_Connected extends StatelessWidget {
                           const SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: foodBank['contact'] ?? 'Contact Info'),
+                                text: foodBank['contactinfo'].toString() ?? 'Contact Info'),
                             readOnly: true,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
@@ -105,7 +105,7 @@ class FB_Connected extends StatelessWidget {
                           const SizedBox(height: 10),
                           TextField(
                             controller: TextEditingController(
-                                text: foodBank['address'] ?? 'Food Bank Address'),
+                                text: foodBank['address'].toString() ?? 'Foodbank Address'),
                             readOnly: true,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
