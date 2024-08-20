@@ -128,6 +128,7 @@ class _HomepageState extends State<Homepage> {
                       child: ListTile(
                         title: Text_Theme.text_size(noti.title, 20),
                         subtitle: Text_Theme.text_size(noti.subtitle, 15),
+                        tileColor: noti.isEmergency?Colors.red:Colors.white,
                       ),
                     );
                   },

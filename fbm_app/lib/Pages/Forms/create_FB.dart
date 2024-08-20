@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:fbm_app/Styles/BgColor.dart';
+import 'package:fbm_app/classes/notification_class.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -181,6 +182,7 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
                           _addressController.text,
                           int.parse(_contactInfoController.text));
                       DataClass.addUsername(DataClass.username);
+                      setState(() {});
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                             content: Text('Data saved successfully')),
@@ -189,6 +191,8 @@ class _CreateFoodBankState extends State<CreateFoodBank> {
                       _contactInfoController.clear();
                       _cityNameController.clear();
                       _addressController.clear();
+                      NotificationClass('New Foodbank ${DataClass.foodbank}',
+                          'by ${DataClass.username}', false, false);
                     },
                     child: const Text(
                       "SUBMIT",

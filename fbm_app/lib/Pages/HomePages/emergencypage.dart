@@ -1,5 +1,7 @@
 import 'package:fbm_app/Button/elevatedbutton.dart';
 import 'package:fbm_app/Styles/TextStyle.dart';
+import 'package:fbm_app/classes/data_class.dart';
+import 'package:fbm_app/classes/notification_class.dart';
 import 'package:flutter/material.dart';
 
 class Emergency extends StatefulWidget {
@@ -32,7 +34,8 @@ class _EmergencyState extends State<Emergency> {
             SizedBox(
               height: 300,
             ),
-            button2(),
+            GestureDetector(child: button2(),
+            onTap: () => NotificationClass('EMERGENCY', '${DataClass.username} has reported', false, true),),
           ],
         )));
   }
