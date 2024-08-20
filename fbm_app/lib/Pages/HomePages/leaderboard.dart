@@ -16,8 +16,6 @@ class _leaderboardState extends State<leaderboard> {
   @override
   void initState() {
     super.initState();
-    LeaderboardClass.allocatePointsDonations();
-    LeaderboardClass.allocatePointsVolunteers();
   }
 
   Widget build(BuildContext context) {

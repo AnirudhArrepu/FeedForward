@@ -33,9 +33,13 @@ class _HomepageState extends State<Homepage> {
     r = widget.userDetails['role'];
     Profile = widget.userDetails;
     DataClass.addUsername(widget.userDetails['name']);
-    setState(() {});
+    loadingLeaderboard();
+  }
 
-    LeaderboardClass.allocatePointsDonations();
+  void loadingLeaderboard() async {
+    await LeaderboardClass.allocatePointsDonations();
+    await LeaderboardClass.allocatePointsVolunteers();
+    setState(() {});
   }
 
   void _scrollToBottom() {
@@ -95,16 +99,20 @@ class _HomepageState extends State<Homepage> {
               ),
               SizedBox(height: 10),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                margin: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 16.0),
                 child: ListTile(
-                  title: Text_Theme.text_size('${LeaderboardClass.winnerDonation}', 20),
+                  title: Text_Theme.text_size(
+                      '${LeaderboardClass.winnerDonation}', 20),
                   subtitle: Text_Theme.text_size('is no.1 donor', 15),
                 ),
               ),
               Card(
-                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                margin: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 16.0),
                 child: ListTile(
-                  title: Text_Theme.text_size('${LeaderboardClass.winnerVolunteer}', 20),
+                  title: Text_Theme.text_size(
+                      '${LeaderboardClass.winnerVolunteer}', 20),
                   subtitle: Text_Theme.text_size('is no.1 volunteer', 15),
                 ),
               ),
@@ -115,7 +123,8 @@ class _HomepageState extends State<Homepage> {
                   itemBuilder: (context, index) {
                     final noti = NotificationClass.notifications[index];
                     return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 16.0),
                       child: ListTile(
                         title: Text_Theme.text_size(noti.title, 20),
                         subtitle: Text_Theme.text_size(noti.subtitle, 15),
@@ -128,7 +137,8 @@ class _HomepageState extends State<Homepage> {
               Center(
                 child: Container(
                   height: 40,
-                  child: Text_Theme.text_white(idioms[Random().nextInt(idioms.length)]),
+                  child: Text_Theme.text_white(
+                      idioms[Random().nextInt(idioms.length)]),
                 ),
               ),
               SizedBox(height: 40),
@@ -150,14 +160,16 @@ class _HomepageState extends State<Homepage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (c) => RestaurantProfile(RDetails: Profile),
+                            builder: (c) =>
+                                RestaurantProfile(RDetails: Profile),
                           ),
                         );
                       }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color.fromARGB(255, 243, 4, 4),
-                      padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 85, vertical: 15),
                     ),
                     icon: const Icon(
                       Icons.person,

@@ -2,29 +2,44 @@ import 'package:fbm_app/Styles/BgColor.dart';
 import 'package:fbm_app/classes/leaderboard_class.dart';
 import 'package:flutter/material.dart';
 
-class LeaderboardVolunteer extends StatelessWidget {
+class LeaderboardVolunteer extends StatefulWidget {
   const LeaderboardVolunteer({super.key});
+
+  @override
+  State<LeaderboardVolunteer> createState() => _LeaderboardVolunteerState();
+}
+
+class _LeaderboardVolunteerState extends State<LeaderboardVolunteer> {
+  @override
+  void initState() {
+    super.initState();
+    loadingLeaderboard();
+  }
+
+  void loadingLeaderboard() async {
+    await LeaderboardClass.allocatePointsDonations();
+    await LeaderboardClass.allocatePointsVolunteers();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.bgcolor(),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Volunteer Leaderboard",
-          style: TextStyle(
-            color: Colors.black,
+        backgroundColor: AppTheme.bgcolor(),
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          title: const Text(
+            "Volunteer Leaderboard",
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
         ),
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(16.0),
-        children: [
+        body: ListView(padding: const EdgeInsets.all(16.0), children: [
           const SizedBox(
             height: 70,
           ),
-           Container(
+          Container(
             color: Colors.brown,
             height: 30,
             width: 120,
@@ -38,14 +53,13 @@ class LeaderboardVolunteer extends StatelessWidget {
               ),
             ),
           ),
-        Container(
+          Container(
             color: Colors.brown,
             height: 500,
             child: ListView.builder(
-              itemCount:
-                  LeaderboardClass.userPointsSortedVolunteers.length < 10
-                      ? LeaderboardClass.userPointsSortedVolunteers.length
-                      : 10,
+              itemCount: LeaderboardClass.userPointsSortedVolunteers.length < 10
+                  ? LeaderboardClass.userPointsSortedVolunteers.length
+                  : 10,
               itemBuilder: (BuildContext context, int index) {
                 var user = LeaderboardClass.userPointsSortedVolunteers.entries
                     .toList()[index]
@@ -62,8 +76,6 @@ class LeaderboardVolunteer extends StatelessWidget {
               },
             ),
           ),
-        ]
-    )
-    );
+        ]));
   }
 }
