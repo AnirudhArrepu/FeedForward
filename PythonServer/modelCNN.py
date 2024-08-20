@@ -10,7 +10,7 @@ import zipfile
 
 app = Flask(__name__)
 
-model = tf.keras.models.load_model('model.h5')
+model = tf.keras.models.load_model('model1.h5')
 
 
 @app.route('/upload', methods=['POST'])
