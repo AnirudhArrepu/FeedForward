@@ -25,6 +25,7 @@ class _HomepageState extends State<Homepage> {
   late int r;
   late Map<String, dynamic> Profile;
   static const List<String> route = ['/profile', '/rprofile'];
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -33,9 +34,15 @@ class _HomepageState extends State<Homepage> {
     Profile = widget.userDetails;
     DataClass.addUsername(widget.userDetails['name']);
     LeaderboardClass.allocatePointsDonations();
-    setState(() {
-      
-    });
+    setState(() {});
+  }
+
+  void scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   @override
@@ -48,162 +55,164 @@ class _HomepageState extends State<Homepage> {
       "\"Feed a family; make a lasting impact with your gift.\"",
       "\"Small act, big change: donate food and spread kindness.\"",
       "\"Every can counts—help us end hunger together.\"",
-      "\"Give food, give hope; be a hero in someones life.\"",
+      "\"Give food, give hope; be a hero in someone's life.\"",
       "\"Together, we can turn hunger into hope. Donate now!\""
     ];
+
     return Scaffold(
-        backgroundColor: AppTheme.bgcolor(),
-        appBar: AppBar(
-          leading: Padding(
-              padding: const EdgeInsets.all(4),
-              child: Image.asset(
-                'assets/logo.png',
-                width: 100,
-                height: 100,
-              )),
-          // backgroundColor: AppTheme.titleColor(),
-          title: Text_Theme.text_size("FeedForward", 20),
-          centerTitle: true,
+      backgroundColor: AppTheme.bgcolor(),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Image.asset(
+            'assets/logo.png',
+            width: 100,
+            height: 100,
+          ),
         ),
-        body: GestureDetector(
-          onDoubleTap: () => {
-            Navigator.pushNamed(context, '/emergency'),
-          },
-          child: SingleChildScrollView(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        title: Text_Theme.text_size("FeedForward", 20),
+        centerTitle: true,
+      ),
+      body: GestureDetector(
+        onDoubleTap: () => {
+          Navigator.pushNamed(context, '/emergency'),
+        },
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(height: 10),
+              const Text(
+                "Notifications",
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 10),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                child: ListTile(
+                  title: Text_Theme.text_size('${LeaderboardClass.winnerDonation}', 20),
+                  subtitle: Text_Theme.text_size('is no.1 donor', 15),
+                ),
+              ),
+              Card(
+                margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                child: ListTile(
+                  title: Text_Theme.text_size('${LeaderboardClass.winnerVolunteer}', 20),
+                  subtitle: Text_Theme.text_size('is no.1 volunteer', 15),
+                ),
+              ),
+              Container(
+                height: 325,
+                child: ListView.builder(
+                  itemCount: NotificationClass.notifications.length,
+                  itemBuilder: (context, index) {
+                    final noti = NotificationClass.notifications[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                      child: ListTile(
+                        title: Text_Theme.text_size(noti.title, 20),
+                        subtitle: Text_Theme.text_size(noti.subtitle, 15),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 75),
+              Center(
+                child: Container(
+                  height: 40,
+                  child: Text_Theme.text_white(idioms[Random().nextInt(idioms.length)]),
+                ),
+              ),
+              SizedBox(height: 40),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      if (r == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (c) => FbProfile(proDetails: Profile),
+                          ),
+                        );
+                      }
+                      if (r == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (c) => RestaurantProfile(RDetails: Profile),
+                          ),
+                        );
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 243, 4, 4),
+                      padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
+                    ),
+                    icon: const Icon(
+                      Icons.person,
+                      size: 25,
+                      color: Colors.black,
+                    ),
+                    label: const Text(
+                      "PROFILE",
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ),
+                  ),
+                  SizedBox(width: 10), 
+                  ElevatedButton(
+                    onPressed: scrollDown,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 243, 4, 4),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                    ),
+                    child: Icon(Icons.keyboard_arrow_down, color: Colors.black),
+                  ),
+                ],
+              ),
+              SizedBox(height: 50),
+              Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(
-                    height: 10,
+                  SizedBox(width: 60),
+                  SizedBox(width: 80),
+                  butt(
+                    text: "    MAP      ",
+                    routeName: "/map",
+                    icon: Icon(Icons.location_on),
                   ),
-                  const Text(
-                    "Notifications",
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ],
+              ),
+              SizedBox(height: 15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  butt(
+                    text: "LEADERBOARD",
+                    routeName: "/leaderboard",
+                    icon: Icon(Icons.emoji_events),
                   ),
-                  SizedBox(
-                    height: 10,
+                  SizedBox(width: 10),
+                  butt(
+                    text: "WASTE\nMANAGEMENT",
+                    routeName: "/waste",
+                    icon: Icon(Icons.recycling_rounded),
                   ),
-                  Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 16.0),
-                      child: ListTile(
-                        title: Text_Theme.text_size(
-                            '${LeaderboardClass.winnerDonation}', 20),
-                        subtitle: Text_Theme.text_size('is no.1 donor', 15),
-                      )),
-                  Card(
-                      margin: const EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 16.0),
-                      child: ListTile(
-                        title: Text_Theme.text_size(
-                            '${LeaderboardClass.winnerVolunteer}', 20),
-                        subtitle: Text_Theme.text_size('is no.1 volunteer', 15),
-                      )),
-                  SingleChildScrollView(
-                    child: Container(
-                        height: 325,
-                        child: ListView.builder(
-                            itemCount: NotificationClass.notifications.length,
-                            itemBuilder: (context, index) {
-                              final noti =
-                                  NotificationClass.notifications[index];
-                              return Card(
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 10.0, horizontal: 16.0),
-                                  child: ListTile(
-                                    title: Text_Theme.text_size(noti.title, 20),
-                                    subtitle:
-                                        Text_Theme.text_size(noti.subtitle, 15),
-                                  ));
-                            })),
-                  ),
-                  SizedBox(
-                    height: 75,
-                  ),
-                  Center(
-                    child: Container(
-                      height: 40,
-                      child: Text_Theme.text_white(
-                          idioms[Random().nextInt(idioms.length)]),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                    SizedBox(
-                      width: 70,
-                    ),
-                    ElevatedButton.icon(
-                      onPressed: () {
-                        if (r == 0) {
-                          {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (c) =>
-                                        FbProfile(proDetails: Profile)));
-                          }
-                        }
-                        if (r == 1) {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (c) =>
-                                      RestaurantProfile(RDetails: Profile)));
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 243, 4, 4),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 85, vertical: 15)),
-                      icon: const Icon(
-                        Icons.person,
-                        size: 25,
-                        color: Colors.black,
-                      ),
-                      label: const Text(
-                        "PROFILE",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
-                  ]),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(width: 60),
-                      SizedBox(width: 80),
-                      butt(
-                          text: "    MAP      ",
-                          routeName: "/map",
-                          icon: Icon(Icons.location_on)),
-                    ],
-                  ),
-                  SizedBox(height: 15),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    butt(
-                        text: "LEADERBOARD",
-                        routeName: "/leaderboard",
-                        icon: Icon(Icons.emoji_events)),
-                    SizedBox(width: 10),
-                    butt(
-                        text: "WASTE\nMANAGEMENT",
-                        routeName: "/waste",
-                        icon: Icon(Icons.recycling_rounded)),
-                  ]),
-                  SizedBox(
-                    height: 50,
-                  ),
-                ]),
+                ],
+              ),
+              SizedBox(height: 50),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
