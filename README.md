@@ -28,7 +28,7 @@
   <li>APIs:<ul><li>OpenStreetMap</li><li>OpenCage (Geocoding API)</li></ul></li>
 </ul>
 <h3>Detailed View</h3>
-<p>Check out the detailed <a href="">here</a></p>
+<p>Check out the detailed demo of our app <a href="https://1drv.ms/w/c/57909708758e2b67/EQJSnHZmrCRLnniUmFrI1K8BuDUQLxGWtIDhkWsvIQAZ1A?e=p4Y3t1">here</a></p>
 
 <h3>Contributions</h3>
 <p>Check our detailed contributions <a href="https://docs.google.com/document/d/1d7hsIui84KKzhF1QA0ngyRFdjk6ZCZP07JLtsHXVUEI/edit?usp=sharing">here</a>: </p>
