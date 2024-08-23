@@ -16,7 +16,9 @@
 <p>Aimed to work on SDG goals 2 (Zero Hunger), 12 (Responsible Consumption and Usage)</p>
 <h3>Problem Statement</h3>
 <p>The current system for food donation and distribution is fragmented and inefficient, leading to missed opportunities for addressing food insecurity. Food banks struggle with visibility and outreach, volunteers are not efficiently matched with opportunities, and donors lack clear insights into the impact of their contributions. Additionally, during crises, the coordination for urgent food aid is often slow and cumbersome. To address these issues, we need an integrated mobile application that streamlines the registration of food banks, facilitates volunteer engagement, locates the nearest food assistance resources using geo-tagging, gamifies the impact of donations and volunteer hours, and provides an immediate response mechanism for crises. We are also including restaurants to sign up and thus foodbanks can connect with them for the excess of the restaurants </p>
-![image](https://github.com/user-attachments/assets/952ac9bc-3ac5-46d5-bb02-0964297d16a2)
+
+
+<img src="https://github.com/user-attachments/assets/952ac9bc-3ac5-46d5-bb02-0964297d16a2"></img>
 
 
 <h3>Tech Stack</h3>
@@ -25,7 +27,8 @@
   <li>Backend: <ul><li>Dart</li><li>Firebase (Authentication, Database)</li><li>Python (Building API, web-scraping)</li></ul></li>
   <li>APIs:<ul><li>OpenStreetMap</li><li>OpenCage (Geocoding API)</li></ul></li>
 </ul>
-
+<h3>Detailed View</h3>
+<p>Check out the detailed <a href="">here</a></p>
 
 <h3>Contributions</h3>
 <p>Check our detailed contributions <a href="https://docs.google.com/document/d/1d7hsIui84KKzhF1QA0ngyRFdjk6ZCZP07JLtsHXVUEI/edit?usp=sharing">here</a>: </p>
