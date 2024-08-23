@@ -1,6 +1,6 @@
 <h1>FeedForward</h1>
 <h3>Repository Skeleton</h3>
-<p>|__fbm_app <br> | <br> |__web-scraping <br> | &nbsp  &nbsp|__scrapeAkshayPatra.py <br> | <br> |__model-server<br> |  &nbsp &nbsp|__WasteDetectionModel.py <br>| &nbsp &nbsp|__model.ipynb <br> |  &nbsp &nbsp|__model.h5 <br>| <br> |__FeedForward_ppt</p>
+<p>|__fbm_app <br> | <br> |__web-scraping <br> | &nbsp  &nbsp|__scrapeAkshayPatra.py <br> | <br> |__model-server<br> |  &nbsp &nbsp|__WasteDetectionModel.py <br>| &nbsp &nbsp|__model.ipynb <br> | <br> |__FeedForward_ppt</p>
 <!-- <ul>
   <li><h4>fbm_app</h4></li>
   <p>Flutter app directory</p>
